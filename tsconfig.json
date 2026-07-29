@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "checkJs": false,
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "target": "ES2022"
+  },
+  "include": [
+    ".storybook/**/*.js",
+    "src/**/*.js",
+    "scripts/**/*.mjs"
+  ]
+}

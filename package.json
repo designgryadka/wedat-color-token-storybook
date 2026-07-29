@@ -1,0 +1,16 @@
+{
+  "name": "wedat-color-token-storybook",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build",
+    "test:tokens": "node scripts/validate-tokens.mjs"
+  },
+  "devDependencies": {
+    "@storybook/html": "^8.6.18",
+    "@storybook/html-vite": "^8.6.14",
+    "storybook": "^8.6.14",
+    "vite": "^6.1.0"
+  }
+}
