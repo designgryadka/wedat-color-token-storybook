@@ -1,3 +1,5 @@
 node_modules/
 storybook-static/
+.pnpm-store/
+.tools/
 .DS_Store
