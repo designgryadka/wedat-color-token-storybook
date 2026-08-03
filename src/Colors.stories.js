@@ -1,4 +1,5 @@
 import { groupTokens, layers, resolveToken } from "./tokens.js";
+import { componentUsage } from "./componentUsage.js";
 
 const escapeHtml = (value) => String(value)
   .replaceAll("&", "&amp;")
@@ -13,8 +14,16 @@ function renderScopes(scopes) {
   return scopes.map((scope) => `<span class="scope">${escapeHtml(scope)}</span>`).join("");
 }
 
-function renderToken(token) {
+function renderComponents(components) {
+  if (!components.length) {
+    return '<span class="component component--empty">Not currently bound</span>';
+  }
+  return components.map((component) => `<span class="component">${escapeHtml(component)}</span>`).join("");
+}
+
+function renderToken(token, layerId) {
   const resolved = resolveToken(token);
+  const components = layerId === "component" ? (componentUsage[token.name] || []) : null;
   const alias = token.alias
     ? `<div class="alias"><span>Aliases</span><code>${escapeHtml(token.alias)}</code></div>`
     : '<div class="alias alias--raw"><span>Source</span><code>Raw value</code></div>';
@@ -22,7 +31,7 @@ function renderToken(token) {
   return `
     <article
       class="token-row"
-      data-search="${escapeHtml(`${token.name} ${token.description} ${token.scopes.join(" ")} ${token.alias || ""}`.toLowerCase())}"
+      data-search="${escapeHtml(`${token.name} ${token.description} ${token.scopes.join(" ")} ${token.alias || ""} ${(components || []).join(" ")}`.toLowerCase())}"
       data-scopes="${escapeHtml(token.scopes.join(" "))}"
     >
       <div class="token-identity">
@@ -35,6 +44,12 @@ function renderToken(token) {
         </div>
       </div>
       ${alias}
+      ${components ? `
+        <div class="used-by">
+          <span>Used by</span>
+          <div>${renderComponents(components)}</div>
+        </div>
+      ` : ""}
       <div class="value">
         <span>Resolved value</span>
         <code>${escapeHtml(resolved.displayValue)}</code>
@@ -67,7 +82,7 @@ function renderLayer(layer) {
               <span>${tokens.length}</span>
             </summary>
             <div class="token-list">
-              ${tokens.map(renderToken).join("")}
+              ${tokens.map((token) => renderToken(token, layer.id)).join("")}
             </div>
           </details>
         `).join("")}

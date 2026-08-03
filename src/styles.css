@@ -304,6 +304,10 @@ select {
   align-items: center;
 }
 
+#component .token-row {
+  grid-template-columns: minmax(300px, 1.55fr) minmax(170px, 0.9fr) minmax(220px, 1.2fr) minmax(125px, 0.6fr) minmax(200px, 0.95fr);
+}
+
 .token-row + .token-row {
   border-top: 1px solid #edf0fc;
 }
@@ -365,13 +369,15 @@ code {
 
 .alias,
 .value,
-.scopes {
+.scopes,
+.used-by {
   min-width: 0;
 }
 
 .alias > span,
 .value > span,
-.scopes > span {
+.scopes > span,
+.used-by > span {
   display: block;
   margin-bottom: 7px;
   color: #8b98b3;
@@ -397,6 +403,29 @@ code {
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
+}
+
+.used-by > div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.component {
+  padding: 5px 7px;
+  color: #5638a7;
+  border: 1px solid #d8cdf7;
+  border-radius: 7px;
+  background: #f2edff;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.component--empty {
+  color: #687792;
+  border-color: #d3dceb;
+  background: #edf0fc;
 }
 
 .scope {
@@ -428,6 +457,10 @@ code {
   .token-row {
     grid-template-columns: minmax(280px, 1.5fr) 1fr;
   }
+
+  #component .token-row {
+    grid-template-columns: minmax(280px, 1.5fr) 1fr;
+  }
 }
 
 @media (max-width: 700px) {
@@ -446,7 +479,8 @@ code {
 
   .architecture,
   .toolbar,
-  .token-row {
+  .token-row,
+  #component .token-row {
     grid-template-columns: 1fr;
   }
 
