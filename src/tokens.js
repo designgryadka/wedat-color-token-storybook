@@ -1,341 +1,3316 @@
-const palettes = {
-  neutral: ["#EDF0FC", "#D3DCEB", "#BAC4D8", "#A0ACC4", "#8B98B3", "#7786A4", "#687792", "#56637A", "#465064", "#323B4C"],
-  gray: ["#FAFAFA", "#F6F6F6", "#F0F0F0", "#E2E2E2", "#C0C0C0", "#A1A1A1", "#787878", "#636363", "#444444", "#232323"],
-  "brand/primary": ["#E3F2FF", "#BCDEFF", "#90C9FF", "#63B4FF", "#42A4FF", "#2594FE", "#2786EF", "#2574DB", "#2462C9", "#2243A8"],
-  green: ["#E8F5EA", "#C8E7CA", "#A6D8A9", "#82CA87", "#66BE6D", "#4CB253", "#43A34A", "#38913F", "#2E8035", "#1B6122"],
-  yellow: ["#FFF9E0", "#FFEEB1", "#FFE47D", "#FFDB44", "#FFD100", "#FFC800", "#FFB900", "#FFA500", "#FF9300", "#FF7200"],
-  red: ["#FBE9E7", "#FFCBBC", "#FFAA90", "#FF8964", "#FF6E42", "#FF5421", "#F44E1D", "#E64718", "#D84014", "#BF330A"],
-  "brand/secondary": ["#E5E9EF", "#BDC7D9", "#93A3C0", "#6A7FA6", "#4B6595", "#274C86", "#21457E", "#173C72", "#103366", "#07224F"],
-  orange: ["#FFF3DF", "#FFDFAF", "#FFCA7B", "#FFB444", "#FFA413", "#FF9400", "#FB8800", "#F57700", "#EF6700", "#E74A00"]
-};
-
-const steps = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900];
-const primitive = [];
-
-for (const [family, values] of Object.entries(palettes)) {
-  values.forEach((value, index) => primitive.push({
-    name: `${family}/${steps[index]}`,
-    value,
-    scopes: [],
-    description: `${family.replace("/", " ")} foundation color at step ${steps[index]}. Use through semantic, interaction, or component aliases.`
-  }));
-}
-
-primitive.push(
+const primitive = [
   {
-    name: "base/white",
-    value: "#FFFFFF",
-    scopes: [],
-    description: "Base white foundation color for surfaces and inverse foreground content."
+    "name": "alpha/black/10",
+    "value": "rgba(0, 0, 0, 0.1)",
+    "scopes": [],
+    "description": "Black overlay at 10% opacity for pressed and active visual treatments.",
+    "codeSyntax": "var(--color-alpha-black-10)"
   },
   {
-    name: "alpha/white/40",
-    value: "rgba(255, 255, 255, 0.4)",
-    displayValue: "#FFFFFF / 40%",
-    scopes: [],
-    description: "White with 40% alpha for glass surfaces and translucent overlays."
+    "name": "alpha/blue/08",
+    "value": "rgba(37, 116, 219, 0.078)",
+    "scopes": [],
+    "description": "alpha blue 08 primitive color. Use through higher-level aliases.",
+    "codeSyntax": "var(--color-alpha-blue-08)"
   },
   {
-    name: "alpha/blue/08",
-    value: "rgba(37, 116, 219, 0.08)",
-    displayValue: "#2574DB / 8%",
-    scopes: [],
-    description: "Primary blue with 8% alpha for subtle interactive glass backgrounds."
+    "name": "alpha/blue/12",
+    "value": "rgba(37, 116, 219, 0.122)",
+    "scopes": [],
+    "description": "alpha blue 12 primitive color. Use through higher-level aliases.",
+    "codeSyntax": "var(--color-alpha-blue-12)"
   },
   {
-    name: "alpha/blue/12",
-    value: "rgba(37, 116, 219, 0.12)",
-    displayValue: "#2574DB / 12%",
-    scopes: [],
-    description: "Primary blue with 12% alpha for selected backgrounds."
+    "name": "alpha/blue/20",
+    "value": "rgba(37, 116, 219, 0.2)",
+    "scopes": [],
+    "description": "alpha blue 20 primitive color. Use through higher-level aliases.",
+    "codeSyntax": "var(--color-alpha-blue-20)"
   },
   {
-    name: "alpha/blue/20",
-    value: "rgba(37, 116, 219, 0.2)",
-    displayValue: "#2574DB / 20%",
-    scopes: [],
-    description: "Primary blue with 20% alpha for strong selected backgrounds."
+    "name": "alpha/dark/64",
+    "value": "rgba(15, 20, 28, 0.64)",
+    "scopes": [],
+    "description": "Dark overlay color at 64% opacity used for translucent high-contrast surfaces.",
+    "codeSyntax": "var(--color-alpha-dark-64)"
+  },
+  {
+    "name": "alpha/white/00",
+    "value": "rgba(255, 255, 255, 0)",
+    "scopes": [],
+    "description": "Fully transparent white used as a gradient stop in surface fade utilities.",
+    "codeSyntax": "var(--color-alpha-white-00)"
+  },
+  {
+    "name": "alpha/white/20",
+    "value": "rgba(255, 255, 255, 0.2)",
+    "scopes": [],
+    "description": "White with 20% opacity for subtle overlays and inverse strokes.",
+    "codeSyntax": "var(--color-alpha-white-20)"
+  },
+  {
+    "name": "alpha/white/40",
+    "value": "rgba(255, 255, 255, 0.4)",
+    "scopes": [],
+    "description": "alpha white 40 primitive color. Use through higher-level aliases.",
+    "codeSyntax": "var(--color-alpha-white-40)"
+  },
+  {
+    "name": "base/white",
+    "value": "#FFFFFF",
+    "scopes": [],
+    "description": "base white primitive color. Use through higher-level aliases.",
+    "codeSyntax": "var(--color-base-white)"
+  },
+  {
+    "name": "brand/primary/100",
+    "value": "#BCDEFF",
+    "scopes": [],
+    "description": "brand primary 100 primitive color. Use through higher-level aliases.",
+    "codeSyntax": "var(--color-brand-primary-100)"
+  },
+  {
+    "name": "brand/primary/200",
+    "value": "#90C9FF",
+    "scopes": [],
+    "description": "brand primary 200 primitive color. Use through higher-level aliases.",
+    "codeSyntax": "var(--color-brand-primary-200)"
+  },
+  {
+    "name": "brand/primary/300",
+    "value": "#63B4FF",
+    "scopes": [],
+    "description": "brand primary 300 primitive color. Use through higher-level aliases.",
+    "codeSyntax": "var(--color-brand-primary-300)"
+  },
+  {
+    "name": "brand/primary/400",
+    "value": "#42A4FF",
+    "scopes": [],
+    "description": "brand primary 400 primitive color. Use through higher-level aliases.",
+    "codeSyntax": "var(--color-brand-primary-400)"
+  },
+  {
+    "name": "brand/primary/50",
+    "value": "#E3F2FF",
+    "scopes": [],
+    "description": "brand primary 50 primitive color. Use through higher-level aliases.",
+    "codeSyntax": "var(--color-brand-primary-50)"
+  },
+  {
+    "name": "brand/primary/500",
+    "value": "#2594FE",
+    "scopes": [],
+    "description": "brand primary 500 primitive color. Use through higher-level aliases.",
+    "codeSyntax": "var(--color-brand-primary-500)"
+  },
+  {
+    "name": "brand/primary/600",
+    "value": "#2786EF",
+    "scopes": [],
+    "description": "brand primary 600 primitive color. Use through higher-level aliases.",
+    "codeSyntax": "var(--color-brand-primary-600)"
+  },
+  {
+    "name": "brand/primary/700",
+    "value": "#2574DB",
+    "scopes": [],
+    "description": "brand primary 700 primitive color. Use through higher-level aliases.",
+    "codeSyntax": "var(--color-brand-primary-700)"
+  },
+  {
+    "name": "brand/primary/800",
+    "value": "#2462C9",
+    "scopes": [],
+    "description": "brand primary 800 primitive color. Use through higher-level aliases.",
+    "codeSyntax": "var(--color-brand-primary-800)"
+  },
+  {
+    "name": "brand/primary/900",
+    "value": "#2243A8",
+    "scopes": [],
+    "description": "brand primary 900 primitive color. Use through higher-level aliases.",
+    "codeSyntax": "var(--color-brand-primary-900)"
+  },
+  {
+    "name": "brand/secondary/100",
+    "value": "#BDC7D9",
+    "scopes": [],
+    "description": "brand secondary 100 primitive color. Use through higher-level aliases.",
+    "codeSyntax": "var(--color-brand-secondary-100)"
+  },
+  {
+    "name": "brand/secondary/200",
+    "value": "#93A3C0",
+    "scopes": [],
+    "description": "brand secondary 200 primitive color. Use through higher-level aliases.",
+    "codeSyntax": "var(--color-brand-secondary-200)"
+  },
+  {
+    "name": "brand/secondary/300",
+    "value": "#6A7FA6",
+    "scopes": [],
+    "description": "brand secondary 300 primitive color. Use through higher-level aliases.",
+    "codeSyntax": "var(--color-brand-secondary-300)"
+  },
+  {
+    "name": "brand/secondary/400",
+    "value": "#4B6595",
+    "scopes": [],
+    "description": "brand secondary 400 primitive color. Use through higher-level aliases.",
+    "codeSyntax": "var(--color-brand-secondary-400)"
+  },
+  {
+    "name": "brand/secondary/50",
+    "value": "#E5E9EF",
+    "scopes": [],
+    "description": "brand secondary 50 primitive color. Use through higher-level aliases.",
+    "codeSyntax": "var(--color-brand-secondary-50)"
+  },
+  {
+    "name": "brand/secondary/500",
+    "value": "#274C86",
+    "scopes": [],
+    "description": "brand secondary 500 primitive color. Use through higher-level aliases.",
+    "codeSyntax": "var(--color-brand-secondary-500)"
+  },
+  {
+    "name": "brand/secondary/600",
+    "value": "#21457E",
+    "scopes": [],
+    "description": "brand secondary 600 primitive color. Use through higher-level aliases.",
+    "codeSyntax": "var(--color-brand-secondary-600)"
+  },
+  {
+    "name": "brand/secondary/700",
+    "value": "#173C72",
+    "scopes": [],
+    "description": "brand secondary 700 primitive color. Use through higher-level aliases.",
+    "codeSyntax": "var(--color-brand-secondary-700)"
+  },
+  {
+    "name": "brand/secondary/800",
+    "value": "#103366",
+    "scopes": [],
+    "description": "brand secondary 800 primitive color. Use through higher-level aliases.",
+    "codeSyntax": "var(--color-brand-secondary-800)"
+  },
+  {
+    "name": "brand/secondary/900",
+    "value": "#07224F",
+    "scopes": [],
+    "description": "brand secondary 900 primitive color. Use through higher-level aliases.",
+    "codeSyntax": "var(--color-brand-secondary-900)"
+  },
+  {
+    "name": "gray/100",
+    "value": "#F6F6F6",
+    "scopes": [],
+    "description": "gray 100 primitive color. Use through higher-level aliases.",
+    "codeSyntax": "var(--color-gray-100)"
+  },
+  {
+    "name": "gray/200",
+    "value": "#F0F0F0",
+    "scopes": [],
+    "description": "gray 200 primitive color. Use through higher-level aliases.",
+    "codeSyntax": "var(--color-gray-200)"
+  },
+  {
+    "name": "gray/300",
+    "value": "#E2E2E2",
+    "scopes": [],
+    "description": "gray 300 primitive color. Use through higher-level aliases.",
+    "codeSyntax": "var(--color-gray-300)"
+  },
+  {
+    "name": "gray/400",
+    "value": "#C0C0C0",
+    "scopes": [],
+    "description": "gray 400 primitive color. Use through higher-level aliases.",
+    "codeSyntax": "var(--color-gray-400)"
+  },
+  {
+    "name": "gray/50",
+    "value": "#FAFAFA",
+    "scopes": [],
+    "description": "gray 50 primitive color. Use through higher-level aliases.",
+    "codeSyntax": "var(--color-gray-50)"
+  },
+  {
+    "name": "gray/500",
+    "value": "#A1A1A1",
+    "scopes": [],
+    "description": "gray 500 primitive color. Use through higher-level aliases.",
+    "codeSyntax": "var(--color-gray-500)"
+  },
+  {
+    "name": "gray/600",
+    "value": "#787878",
+    "scopes": [],
+    "description": "gray 600 primitive color. Use through higher-level aliases.",
+    "codeSyntax": "var(--color-gray-600)"
+  },
+  {
+    "name": "gray/700",
+    "value": "#636363",
+    "scopes": [],
+    "description": "gray 700 primitive color. Use through higher-level aliases.",
+    "codeSyntax": "var(--color-gray-700)"
+  },
+  {
+    "name": "gray/800",
+    "value": "#444444",
+    "scopes": [],
+    "description": "gray 800 primitive color. Use through higher-level aliases.",
+    "codeSyntax": "var(--color-gray-800)"
+  },
+  {
+    "name": "gray/900",
+    "value": "#232323",
+    "scopes": [],
+    "description": "gray 900 primitive color. Use through higher-level aliases.",
+    "codeSyntax": "var(--color-gray-900)"
+  },
+  {
+    "name": "green/100",
+    "value": "#C8E7CA",
+    "scopes": [],
+    "description": "green 100 primitive color. Use through higher-level aliases.",
+    "codeSyntax": "var(--color-green-100)"
+  },
+  {
+    "name": "green/200",
+    "value": "#A6D8A9",
+    "scopes": [],
+    "description": "green 200 primitive color. Use through higher-level aliases.",
+    "codeSyntax": "var(--color-green-200)"
+  },
+  {
+    "name": "green/300",
+    "value": "#82CA87",
+    "scopes": [],
+    "description": "green 300 primitive color. Use through higher-level aliases.",
+    "codeSyntax": "var(--color-green-300)"
+  },
+  {
+    "name": "green/400",
+    "value": "#66BE6D",
+    "scopes": [],
+    "description": "green 400 primitive color. Use through higher-level aliases.",
+    "codeSyntax": "var(--color-green-400)"
+  },
+  {
+    "name": "green/50",
+    "value": "#E8F5EA",
+    "scopes": [],
+    "description": "green 50 primitive color. Use through higher-level aliases.",
+    "codeSyntax": "var(--color-green-50)"
+  },
+  {
+    "name": "green/500",
+    "value": "#4CB253",
+    "scopes": [],
+    "description": "green 500 primitive color. Use through higher-level aliases.",
+    "codeSyntax": "var(--color-green-500)"
+  },
+  {
+    "name": "green/600",
+    "value": "#43A34A",
+    "scopes": [],
+    "description": "green 600 primitive color. Use through higher-level aliases.",
+    "codeSyntax": "var(--color-green-600)"
+  },
+  {
+    "name": "green/700",
+    "value": "#38913F",
+    "scopes": [],
+    "description": "green 700 primitive color. Use through higher-level aliases.",
+    "codeSyntax": "var(--color-green-700)"
+  },
+  {
+    "name": "green/800",
+    "value": "#2E8035",
+    "scopes": [],
+    "description": "green 800 primitive color. Use through higher-level aliases.",
+    "codeSyntax": "var(--color-green-800)"
+  },
+  {
+    "name": "green/900",
+    "value": "#1B6122",
+    "scopes": [],
+    "description": "green 900 primitive color. Use through higher-level aliases.",
+    "codeSyntax": "var(--color-green-900)"
+  },
+  {
+    "name": "neutral/100",
+    "value": "#D3DCEB",
+    "scopes": [],
+    "description": "neutral 100 primitive color. Use through higher-level aliases.",
+    "codeSyntax": "var(--color-neutral-100)"
+  },
+  {
+    "name": "neutral/200",
+    "value": "#BAC4D8",
+    "scopes": [],
+    "description": "neutral 200 primitive color. Use through higher-level aliases.",
+    "codeSyntax": "var(--color-neutral-200)"
+  },
+  {
+    "name": "neutral/300",
+    "value": "#A0ACC4",
+    "scopes": [],
+    "description": "neutral 300 primitive color. Use through higher-level aliases.",
+    "codeSyntax": "var(--color-neutral-300)"
+  },
+  {
+    "name": "neutral/400",
+    "value": "#8B98B3",
+    "scopes": [],
+    "description": "neutral 400 primitive color. Use through higher-level aliases.",
+    "codeSyntax": "var(--color-neutral-400)"
+  },
+  {
+    "name": "neutral/50",
+    "value": "#EDF0FC",
+    "scopes": [],
+    "description": "neutral 50 primitive color. Use through higher-level aliases.",
+    "codeSyntax": "var(--color-neutral-50)"
+  },
+  {
+    "name": "neutral/500",
+    "value": "#7786A4",
+    "scopes": [],
+    "description": "neutral 500 primitive color. Use through higher-level aliases.",
+    "codeSyntax": "var(--color-neutral-500)"
+  },
+  {
+    "name": "neutral/600",
+    "value": "#687792",
+    "scopes": [],
+    "description": "neutral 600 primitive color. Use through higher-level aliases.",
+    "codeSyntax": "var(--color-neutral-600)"
+  },
+  {
+    "name": "neutral/700",
+    "value": "#56637A",
+    "scopes": [],
+    "description": "neutral 700 primitive color. Use through higher-level aliases.",
+    "codeSyntax": "var(--color-neutral-700)"
+  },
+  {
+    "name": "neutral/800",
+    "value": "#465064",
+    "scopes": [],
+    "description": "neutral 800 primitive color. Use through higher-level aliases.",
+    "codeSyntax": "var(--color-neutral-800)"
+  },
+  {
+    "name": "neutral/900",
+    "value": "#323B4C",
+    "scopes": [],
+    "description": "neutral 900 primitive color. Use through higher-level aliases.",
+    "codeSyntax": "var(--color-neutral-900)"
+  },
+  {
+    "name": "orange/100",
+    "value": "#FFDFAF",
+    "scopes": [],
+    "description": "orange 100 primitive color. Use through higher-level aliases.",
+    "codeSyntax": "var(--color-orange-100)"
+  },
+  {
+    "name": "orange/200",
+    "value": "#FFCA7B",
+    "scopes": [],
+    "description": "orange 200 primitive color. Use through higher-level aliases.",
+    "codeSyntax": "var(--color-orange-200)"
+  },
+  {
+    "name": "orange/300",
+    "value": "#FFB444",
+    "scopes": [],
+    "description": "orange 300 primitive color. Use through higher-level aliases.",
+    "codeSyntax": "var(--color-orange-300)"
+  },
+  {
+    "name": "orange/400",
+    "value": "#FFA413",
+    "scopes": [],
+    "description": "orange 400 primitive color. Use through higher-level aliases.",
+    "codeSyntax": "var(--color-orange-400)"
+  },
+  {
+    "name": "orange/50",
+    "value": "#FFF3DF",
+    "scopes": [],
+    "description": "orange 50 primitive color. Use through higher-level aliases.",
+    "codeSyntax": "var(--color-orange-50)"
+  },
+  {
+    "name": "orange/500",
+    "value": "#FF9400",
+    "scopes": [],
+    "description": "orange 500 primitive color. Use through higher-level aliases.",
+    "codeSyntax": "var(--color-orange-500)"
+  },
+  {
+    "name": "orange/600",
+    "value": "#FB8800",
+    "scopes": [],
+    "description": "orange 600 primitive color. Use through higher-level aliases.",
+    "codeSyntax": "var(--color-orange-600)"
+  },
+  {
+    "name": "orange/700",
+    "value": "#F57700",
+    "scopes": [],
+    "description": "orange 700 primitive color. Use through higher-level aliases.",
+    "codeSyntax": "var(--color-orange-700)"
+  },
+  {
+    "name": "orange/800",
+    "value": "#EF6700",
+    "scopes": [],
+    "description": "orange 800 primitive color. Use through higher-level aliases.",
+    "codeSyntax": "var(--color-orange-800)"
+  },
+  {
+    "name": "orange/900",
+    "value": "#E74A00",
+    "scopes": [],
+    "description": "orange 900 primitive color. Use through higher-level aliases.",
+    "codeSyntax": "var(--color-orange-900)"
+  },
+  {
+    "name": "purple/300",
+    "value": "#C870FF",
+    "scopes": [],
+    "description": "Purple palette color used for auxiliary-costs data markers.",
+    "codeSyntax": "var(--color-purple-300)"
+  },
+  {
+    "name": "red/100",
+    "value": "#FFCBBC",
+    "scopes": [],
+    "description": "red 100 primitive color. Use through higher-level aliases.",
+    "codeSyntax": "var(--color-red-100)"
+  },
+  {
+    "name": "red/200",
+    "value": "#FFAA90",
+    "scopes": [],
+    "description": "red 200 primitive color. Use through higher-level aliases.",
+    "codeSyntax": "var(--color-red-200)"
+  },
+  {
+    "name": "red/300",
+    "value": "#FF8964",
+    "scopes": [],
+    "description": "red 300 primitive color. Use through higher-level aliases.",
+    "codeSyntax": "var(--color-red-300)"
+  },
+  {
+    "name": "red/400",
+    "value": "#FF6E42",
+    "scopes": [],
+    "description": "red 400 primitive color. Use through higher-level aliases.",
+    "codeSyntax": "var(--color-red-400)"
+  },
+  {
+    "name": "red/50",
+    "value": "#FBE9E7",
+    "scopes": [],
+    "description": "red 50 primitive color. Use through higher-level aliases.",
+    "codeSyntax": "var(--color-red-50)"
+  },
+  {
+    "name": "red/500",
+    "value": "#FF5421",
+    "scopes": [],
+    "description": "red 500 primitive color. Use through higher-level aliases.",
+    "codeSyntax": "var(--color-red-500)"
+  },
+  {
+    "name": "red/600",
+    "value": "#F44E1D",
+    "scopes": [],
+    "description": "red 600 primitive color. Use through higher-level aliases.",
+    "codeSyntax": "var(--color-red-600)"
+  },
+  {
+    "name": "red/700",
+    "value": "#E64718",
+    "scopes": [],
+    "description": "red 700 primitive color. Use through higher-level aliases.",
+    "codeSyntax": "var(--color-red-700)"
+  },
+  {
+    "name": "red/800",
+    "value": "#D84014",
+    "scopes": [],
+    "description": "red 800 primitive color. Use through higher-level aliases.",
+    "codeSyntax": "var(--color-red-800)"
+  },
+  {
+    "name": "red/900",
+    "value": "#BF330A",
+    "scopes": [],
+    "description": "red 900 primitive color. Use through higher-level aliases.",
+    "codeSyntax": "var(--color-red-900)"
+  },
+  {
+    "name": "yellow/100",
+    "value": "#FFEEB1",
+    "scopes": [],
+    "description": "yellow 100 primitive color. Use through higher-level aliases.",
+    "codeSyntax": "var(--color-yellow-100)"
+  },
+  {
+    "name": "yellow/200",
+    "value": "#FFE47D",
+    "scopes": [],
+    "description": "yellow 200 primitive color. Use through higher-level aliases.",
+    "codeSyntax": "var(--color-yellow-200)"
+  },
+  {
+    "name": "yellow/300",
+    "value": "#FFDB44",
+    "scopes": [],
+    "description": "yellow 300 primitive color. Use through higher-level aliases.",
+    "codeSyntax": "var(--color-yellow-300)"
+  },
+  {
+    "name": "yellow/400",
+    "value": "#FFD100",
+    "scopes": [],
+    "description": "yellow 400 primitive color. Use through higher-level aliases.",
+    "codeSyntax": "var(--color-yellow-400)"
+  },
+  {
+    "name": "yellow/50",
+    "value": "#FFF9E0",
+    "scopes": [],
+    "description": "yellow 50 primitive color. Use through higher-level aliases.",
+    "codeSyntax": "var(--color-yellow-50)"
+  },
+  {
+    "name": "yellow/500",
+    "value": "#FFC800",
+    "scopes": [],
+    "description": "yellow 500 primitive color. Use through higher-level aliases.",
+    "codeSyntax": "var(--color-yellow-500)"
+  },
+  {
+    "name": "yellow/600",
+    "value": "#FFB900",
+    "scopes": [],
+    "description": "yellow 600 primitive color. Use through higher-level aliases.",
+    "codeSyntax": "var(--color-yellow-600)"
+  },
+  {
+    "name": "yellow/700",
+    "value": "#FFA500",
+    "scopes": [],
+    "description": "yellow 700 primitive color. Use through higher-level aliases.",
+    "codeSyntax": "var(--color-yellow-700)"
+  },
+  {
+    "name": "yellow/800",
+    "value": "#FF9300",
+    "scopes": [],
+    "description": "yellow 800 primitive color. Use through higher-level aliases.",
+    "codeSyntax": "var(--color-yellow-800)"
+  },
+  {
+    "name": "yellow/900",
+    "value": "#FF7200",
+    "scopes": [],
+    "description": "yellow 900 primitive color. Use through higher-level aliases.",
+    "codeSyntax": "var(--color-yellow-900)"
   }
-);
-
-const semanticDefinitions = [
-  ["background/canvas", "neutral/50", ["FRAME_FILL", "SHAPE_FILL"], "Primary application canvas background."],
-  ["background/surface", "base/white", ["FRAME_FILL", "SHAPE_FILL"], "Default surface background for cards, panels, and containers."],
-  ["background/subtle", "brand/primary/50", ["FRAME_FILL", "SHAPE_FILL"], "Subtle accent background for low-emphasis highlighted content."],
-  ["background/muted", "gray/100", ["FRAME_FILL", "SHAPE_FILL"], "Muted neutral background for secondary regions."],
-  ["background/brand-subtle", "neutral/50", ["FRAME_FILL", "SHAPE_FILL"], "Subtle branded background for broad interface regions."],
-  ["background/selected", "alpha/blue/12", ["FRAME_FILL", "SHAPE_FILL"], "Background for selected elements with standard emphasis."],
-  ["background/selected-strong", "alpha/blue/20", ["FRAME_FILL", "SHAPE_FILL"], "Background for selected elements requiring stronger emphasis."],
-  ["background/glass", "alpha/white/40", ["FRAME_FILL", "SHAPE_FILL"], "Translucent white background for glass surfaces."],
-
-  ["Text & Icons/primary", "neutral/900", ["SHAPE_FILL", "TEXT_FILL"], "Primary text and icon color for high-emphasis content."],
-  ["Text & Icons/secondary", "neutral/600", ["SHAPE_FILL", "TEXT_FILL"], "Secondary text and icon color for supporting content."],
-  ["Text & Icons/inverse", "base/white", ["SHAPE_FILL", "TEXT_FILL"], "Text and icon color displayed on dark or saturated backgrounds."],
-  ["Text & Icons/disabled", "neutral/600", ["SHAPE_FILL", "TEXT_FILL"], "Text and icon color for disabled interface elements."],
-  ["Text & Icons/link/default", "brand/primary/800", ["SHAPE_FILL", "TEXT_FILL"], "Default foreground color for text links."],
-  ["Text & Icons/link/hover", "brand/primary/500", ["SHAPE_FILL", "TEXT_FILL"], "Foreground color for text links on hover."],
-  ["Text & Icons/link/pressed", "brand/secondary/800", ["SHAPE_FILL", "TEXT_FILL"], "Foreground color for pressed text links."],
-  ["Text & Icons/info", "brand/primary/800", ["SHAPE_FILL", "TEXT_FILL"], "Foreground color for informational content."],
-  ["Text & Icons/success", "green/800", ["SHAPE_FILL", "TEXT_FILL"], "Foreground color for successful content."],
-  ["Text & Icons/warning", "yellow/900", ["SHAPE_FILL", "TEXT_FILL"], "Foreground color for warning content."],
-  ["Text & Icons/danger", "red/800", ["SHAPE_FILL", "TEXT_FILL"], "Foreground color for dangerous or error content."],
-
-  ["border/default", "neutral/400", ["STROKE_COLOR"], "Default border for controls and containers."],
-  ["border/hover", "brand/primary/500", ["STROKE_COLOR"], "Border color for interactive elements on hover."],
-  ["border/focus", "brand/primary/500", ["STROKE_COLOR"], "Border and focus indicator color for keyboard focus."],
-  ["border/selected", "brand/primary/700", ["STROKE_COLOR"], "Border color for selected elements."],
-  ["border/disabled", "neutral/200", ["STROKE_COLOR"], "Border color for disabled elements."],
-  ["border/danger", "red/800", ["STROKE_COLOR"], "Border color for dangerous or invalid elements."],
-
-  ["status/info/background", "brand/primary/700", ["FRAME_FILL", "SHAPE_FILL"], "Filled background color for informational statuses and badges."],
-  ["status/info/foreground", "base/white", ["SHAPE_FILL", "TEXT_FILL"], "Text and icon color displayed on filled informational status backgrounds."],
-  ["status/info/border", "brand/primary/700", ["STROKE_COLOR"], "Border color for informational status elements when a border is used."],
-  ["status/success/background", "green/800", ["FRAME_FILL", "SHAPE_FILL"], "Filled background color for successful statuses and badges."],
-  ["status/success/foreground", "base/white", ["SHAPE_FILL", "TEXT_FILL"], "Text and icon color displayed on filled success status backgrounds."],
-  ["status/success/border", "green/800", ["STROKE_COLOR"], "Border color for success status elements when a border is used."],
-  ["status/warning/background", "yellow/400", ["FRAME_FILL", "SHAPE_FILL"], "Filled background color for warning statuses and badges."],
-  ["status/warning/foreground", "neutral/900", ["SHAPE_FILL", "TEXT_FILL"], "Text and icon color displayed on filled warning status backgrounds."],
-  ["status/warning/border", "yellow/400", ["STROKE_COLOR"], "Border color for warning status elements when a border is used."],
-  ["status/danger/background", "red/800", ["FRAME_FILL", "SHAPE_FILL"], "Filled background color for dangerous, critical, or error statuses and badges."],
-  ["status/danger/foreground", "base/white", ["SHAPE_FILL", "TEXT_FILL"], "Text and icon color displayed on filled danger status backgrounds."],
-  ["status/danger/border", "red/800", ["STROKE_COLOR"], "Border color for danger status elements when a border is used."]
 ];
 
-const interactionDefinitions = [
-  ["primary/background/default", "brand/primary/700", ["FRAME_FILL", "SHAPE_FILL", "STROKE_COLOR"], "Default background color for primary interactive elements."],
-  ["primary/background/hover", "brand/primary/500", ["FRAME_FILL", "SHAPE_FILL", "STROKE_COLOR"], "Background color for primary interactive elements on hover."],
-  ["primary/background/pressed", "brand/secondary/800", ["FRAME_FILL", "SHAPE_FILL", "STROKE_COLOR"], "Background color for primary interactive elements while pressed or activated."],
-  ["primary/background/focus", "brand/primary/500", ["FRAME_FILL", "SHAPE_FILL", "STROKE_COLOR"], "Background color for primary interactive elements in the focused state."],
-  ["primary/background/disabled", "neutral/200", ["FRAME_FILL", "SHAPE_FILL", "STROKE_COLOR"], "Background color for disabled primary interactive elements."],
-  ["primary/foreground/default", "base/white", ["SHAPE_FILL", "TEXT_FILL"], "Text, icon, and selection indicator color on primary interactive backgrounds."],
-  ["primary/foreground/disabled", "neutral/600", ["SHAPE_FILL", "TEXT_FILL"], "Text, icon, and selection indicator color for disabled primary interactive elements."]
+const semantic = [
+  {
+    "name": "background/brand-subtle",
+    "alias": "neutral/50",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL"
+    ],
+    "description": "Subtle brand-tinted background used for lightweight emphasis and informational highlighting.",
+    "codeSyntax": "var(--color-background-brand-subtle)"
+  },
+  {
+    "name": "background/canvas",
+    "alias": "neutral/50",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL"
+    ],
+    "description": "Base page background used for the main application canvas and full-page layouts.",
+    "codeSyntax": "var(--color-background-canvas)"
+  },
+  {
+    "name": "background/glass",
+    "alias": "alpha/white/40",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL"
+    ],
+    "description": "Translucent surface fill used for glass-style panels and overlays over supported backdrops.",
+    "codeSyntax": "var(--color-background-glass)"
+  },
+  {
+    "name": "background/muted",
+    "alias": "gray/100",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL"
+    ],
+    "description": "Muted background used for inactive areas, subdued sections, and low-priority containers.",
+    "codeSyntax": "var(--color-background-muted)"
+  },
+  {
+    "name": "background/selected",
+    "alias": "alpha/blue/12",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL"
+    ],
+    "description": "Background used to indicate a selected item, row, option, or region.",
+    "codeSyntax": "var(--color-background-selected)"
+  },
+  {
+    "name": "background/selected-strong",
+    "alias": "alpha/blue/20",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL"
+    ],
+    "description": "Higher-emphasis background used for strong or persistent selection states.",
+    "codeSyntax": "var(--color-background-selected-strong)"
+  },
+  {
+    "name": "background/subtle",
+    "alias": "brand/primary/50",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL"
+    ],
+    "description": "Low-emphasis background used to separate secondary areas without introducing a strong visual boundary.",
+    "codeSyntax": "var(--color-background-subtle)"
+  },
+  {
+    "name": "background/surface",
+    "alias": "base/white",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL"
+    ],
+    "description": "Default background for cards, panels, containers, menus, and other elevated content surfaces.",
+    "codeSyntax": "var(--color-background-surface)"
+  },
+  {
+    "name": "border/danger",
+    "alias": "red/800",
+    "scopes": [
+      "STROKE_COLOR"
+    ],
+    "description": "Border color for invalid fields, error states, and destructive or critical contexts.",
+    "codeSyntax": "var(--color-border-danger)"
+  },
+  {
+    "name": "border/default",
+    "alias": "neutral/400",
+    "scopes": [
+      "STROKE_COLOR"
+    ],
+    "description": "Default border color for controls, containers, dividers, and structural boundaries.",
+    "codeSyntax": "var(--color-border-default)"
+  },
+  {
+    "name": "border/disabled",
+    "alias": "neutral/200",
+    "scopes": [
+      "STROKE_COLOR"
+    ],
+    "description": "Border color for disabled, unavailable, or noninteractive controls and containers.",
+    "codeSyntax": "var(--color-border-disabled)"
+  },
+  {
+    "name": "border/focus",
+    "alias": "brand/primary/500",
+    "scopes": [
+      "STROKE_COLOR"
+    ],
+    "description": "Border color used to communicate keyboard focus and active focus indication.",
+    "codeSyntax": "var(--color-border-focus)"
+  },
+  {
+    "name": "border/hover",
+    "alias": "brand/primary/500",
+    "scopes": [
+      "STROKE_COLOR"
+    ],
+    "description": "High-emphasis border used where a clearer visual boundary is required.",
+    "codeSyntax": "var(--color-border-strong)"
+  },
+  {
+    "name": "border/selected",
+    "alias": "brand/primary/700",
+    "scopes": [
+      "STROKE_COLOR"
+    ],
+    "description": "Border color used to identify selected items, regions, and interactive objects.",
+    "codeSyntax": "var(--color-border-selected)"
+  },
+  {
+    "name": "Diagramm/Color 1",
+    "value": "#283593",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL",
+      "STROKE_COLOR"
+    ],
+    "description": "Color for charts and graphs",
+    "codeSyntax": "var(--color-diagramm-color-1)"
+  },
+  {
+    "name": "Diagramm/Color 10",
+    "value": "#5A1A81",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL",
+      "STROKE_COLOR"
+    ],
+    "description": "Color for charts and graphs",
+    "codeSyntax": "var(--color-diagramm-color-10)"
+  },
+  {
+    "name": "Diagramm/Color 2",
+    "value": "#274C86",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL",
+      "STROKE_COLOR"
+    ],
+    "description": "Color for charts and graphs",
+    "codeSyntax": "var(--color-diagramm-color-2)"
+  },
+  {
+    "name": "Diagramm/Color 3",
+    "value": "#1F77B4",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL",
+      "STROKE_COLOR"
+    ],
+    "description": "Color for charts and graphs",
+    "codeSyntax": "var(--color-diagramm-color-3)"
+  },
+  {
+    "name": "Diagramm/Color 4",
+    "value": "#00838F",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL",
+      "STROKE_COLOR"
+    ],
+    "description": "Color for charts and graphs",
+    "codeSyntax": "var(--color-diagramm-color-4)"
+  },
+  {
+    "name": "Diagramm/Color 5",
+    "value": "#2E7D32",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL",
+      "STROKE_COLOR"
+    ],
+    "description": "Color for charts and graphs",
+    "codeSyntax": "var(--color-diagramm-color-5)"
+  },
+  {
+    "name": "Diagramm/Color 6",
+    "value": "#AD1457",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL",
+      "STROKE_COLOR"
+    ],
+    "description": "Color for charts and graphs",
+    "codeSyntax": "var(--color-diagramm-color-6)"
+  },
+  {
+    "name": "Diagramm/Color 7",
+    "value": "#C62828",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL",
+      "STROKE_COLOR"
+    ],
+    "description": "Color for charts and graphs",
+    "codeSyntax": "var(--color-diagramm-color-7)"
+  },
+  {
+    "name": "Diagramm/Color 8",
+    "value": "#C45300",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL",
+      "STROKE_COLOR"
+    ],
+    "description": "Color for charts and graphs",
+    "codeSyntax": "var(--color-diagramm-color-8)"
+  },
+  {
+    "name": "Diagramm/Color 9",
+    "value": "#C870FF",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL",
+      "STROKE_COLOR"
+    ],
+    "description": "Color for charts and graphs",
+    "codeSyntax": "var(--color-diagramm-color-9)"
+  },
+  {
+    "name": "status/danger/background",
+    "alias": "red/800",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL"
+    ],
+    "description": "Filled background color for dangerous, critical, or error statuses and badges.",
+    "codeSyntax": "var(--color-status-danger-background)"
+  },
+  {
+    "name": "status/danger/border",
+    "alias": "red/800",
+    "scopes": [
+      "STROKE_COLOR"
+    ],
+    "description": "Border color for danger status elements when a border is used.",
+    "codeSyntax": "var(--color-status-danger-border)"
+  },
+  {
+    "name": "status/danger/foreground",
+    "alias": "base/white",
+    "scopes": [
+      "SHAPE_FILL",
+      "TEXT_FILL"
+    ],
+    "description": "Text and icon color displayed on filled danger status backgrounds.",
+    "codeSyntax": "var(--color-status-danger-foreground)"
+  },
+  {
+    "name": "status/info/background",
+    "alias": "brand/primary/700",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL"
+    ],
+    "description": "Filled background color for informational statuses and badges.",
+    "codeSyntax": "var(--color-status-info-background)"
+  },
+  {
+    "name": "status/info/border",
+    "alias": "brand/primary/700",
+    "scopes": [
+      "STROKE_COLOR"
+    ],
+    "description": "Border color for informational status elements when a border is used.",
+    "codeSyntax": "var(--color-status-info-border)"
+  },
+  {
+    "name": "status/info/foreground",
+    "alias": "base/white",
+    "scopes": [
+      "SHAPE_FILL",
+      "TEXT_FILL"
+    ],
+    "description": "Text and icon color displayed on filled informational status backgrounds.",
+    "codeSyntax": "var(--color-status-info-foreground)"
+  },
+  {
+    "name": "status/success/background",
+    "alias": "green/800",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL"
+    ],
+    "description": "Filled background color for successful statuses and badges.",
+    "codeSyntax": "var(--color-status-success-background)"
+  },
+  {
+    "name": "status/success/border",
+    "alias": "green/800",
+    "scopes": [
+      "STROKE_COLOR"
+    ],
+    "description": "Border color for success status elements when a border is used.",
+    "codeSyntax": "var(--color-status-success-border)"
+  },
+  {
+    "name": "status/success/foreground",
+    "alias": "base/white",
+    "scopes": [
+      "SHAPE_FILL",
+      "TEXT_FILL"
+    ],
+    "description": "Text and icon color displayed on filled success status backgrounds.",
+    "codeSyntax": "var(--color-status-success-foreground)"
+  },
+  {
+    "name": "status/warning/background",
+    "alias": "yellow/400",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL"
+    ],
+    "description": "Filled background color for warning statuses and badges.",
+    "codeSyntax": "var(--color-status-warning-background)"
+  },
+  {
+    "name": "status/warning/border",
+    "alias": "yellow/400",
+    "scopes": [
+      "STROKE_COLOR"
+    ],
+    "description": "Border color for warning status elements when a border is used.",
+    "codeSyntax": "var(--color-status-warning-border)"
+  },
+  {
+    "name": "status/warning/foreground",
+    "alias": "neutral/900",
+    "scopes": [
+      "SHAPE_FILL",
+      "TEXT_FILL"
+    ],
+    "description": "Text and icon color displayed on filled warning status backgrounds.",
+    "codeSyntax": "var(--color-status-warning-foreground)"
+  },
+  {
+    "name": "text & Icons/danger",
+    "alias": "red/800",
+    "scopes": [
+      "SHAPE_FILL",
+      "TEXT_FILL"
+    ],
+    "description": "Foreground color for errors, destructive actions, and critical status indicators.",
+    "codeSyntax": "var(--color-foreground-danger)"
+  },
+  {
+    "name": "text & Icons/disabled",
+    "alias": "neutral/600",
+    "scopes": [
+      "SHAPE_FILL",
+      "TEXT_FILL"
+    ],
+    "description": "Content color used for disabled or unavailable text and icons.",
+    "codeSyntax": "var(--color-foreground-disabled)"
+  },
+  {
+    "name": "text & Icons/info",
+    "alias": "brand/primary/800",
+    "scopes": [
+      "SHAPE_FILL",
+      "TEXT_FILL"
+    ],
+    "description": "Foreground color for informational messages, icons, and supporting indicators.",
+    "codeSyntax": "var(--color-foreground-info)"
+  },
+  {
+    "name": "text & Icons/inverse",
+    "alias": "base/white",
+    "scopes": [
+      "SHAPE_FILL",
+      "TEXT_FILL"
+    ],
+    "description": "Content color used on dark, brand-colored, or otherwise high-contrast backgrounds.",
+    "codeSyntax": "var(--color-foreground-inverse)"
+  },
+  {
+    "name": "text & Icons/link/default",
+    "alias": "brand/primary/800",
+    "scopes": [
+      "SHAPE_FILL",
+      "TEXT_FILL"
+    ],
+    "description": "Default color for interactive text links.",
+    "codeSyntax": "var(--color-foreground-link-default)"
+  },
+  {
+    "name": "text & Icons/link/hover",
+    "alias": "brand/primary/500",
+    "scopes": [
+      "SHAPE_FILL",
+      "TEXT_FILL"
+    ],
+    "description": "Color for text links while the pointer is hovering over them.",
+    "codeSyntax": "var(--color-foreground-link-hover)"
+  },
+  {
+    "name": "text & Icons/link/pressed",
+    "alias": "brand/secondary/800",
+    "scopes": [
+      "SHAPE_FILL",
+      "TEXT_FILL"
+    ],
+    "description": "Color for text links while they are being pressed or activated.",
+    "codeSyntax": "var(--color-foreground-link-pressed)"
+  },
+  {
+    "name": "text & Icons/primary",
+    "alias": "neutral/900",
+    "scopes": [
+      "SHAPE_FILL",
+      "TEXT_FILL"
+    ],
+    "description": "Primary content color for high-emphasis text, icons, and essential information.",
+    "codeSyntax": "var(--color-foreground-primary)"
+  },
+  {
+    "name": "text & Icons/secondary",
+    "alias": "neutral/600",
+    "scopes": [
+      "SHAPE_FILL",
+      "TEXT_FILL"
+    ],
+    "description": "Secondary content color for supporting text, icons, metadata, and less prominent information.",
+    "codeSyntax": "var(--color-foreground-secondary)"
+  },
+  {
+    "name": "text & Icons/success",
+    "alias": "green/800",
+    "scopes": [
+      "SHAPE_FILL",
+      "TEXT_FILL"
+    ],
+    "description": "Foreground color for successful outcomes, confirmations, and positive status indicators.",
+    "codeSyntax": "var(--color-foreground-success)"
+  },
+  {
+    "name": "text & Icons/warning",
+    "alias": "yellow/900",
+    "scopes": [
+      "SHAPE_FILL",
+      "TEXT_FILL"
+    ],
+    "description": "Foreground color for warnings, cautions, and attention-required content.",
+    "codeSyntax": "var(--color-foreground-warning)"
+  }
 ];
 
-const definitionsToTokens = (definitions) => definitions.map(([name, alias, scopes, description]) => ({
-  name,
-  alias,
-  scopes,
-  description
-}));
+const interaction = [
+  {
+    "name": "focus-ring",
+    "alias": "border/focus",
+    "scopes": [
+      "STROKE_COLOR"
+    ],
+    "description": "Universal stroke color used for focus rings across all interactive components.",
+    "codeSyntax": "var(--color-interaction-focus-ring)"
+  },
+  {
+    "name": "primary/background/default",
+    "alias": "brand/primary/700",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL",
+      "STROKE_COLOR"
+    ],
+    "description": "Default background color for primary interactive elements.",
+    "codeSyntax": "var(--color-interaction-primary-background-default)"
+  },
+  {
+    "name": "primary/background/disabled",
+    "alias": "neutral/200",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL",
+      "STROKE_COLOR"
+    ],
+    "description": "Background color for disabled primary interactive elements.",
+    "codeSyntax": "var(--color-interaction-primary-background-disabled)"
+  },
+  {
+    "name": "primary/background/focus",
+    "alias": "brand/primary/500",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL",
+      "STROKE_COLOR"
+    ],
+    "description": "Background color for primary interactive elements in the focused state.",
+    "codeSyntax": "var(--color-interaction-primary-background-focus)"
+  },
+  {
+    "name": "primary/background/hover",
+    "alias": "brand/primary/500",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL",
+      "STROKE_COLOR"
+    ],
+    "description": "Background color for primary interactive elements on hover.",
+    "codeSyntax": "var(--color-interaction-primary-background-hover)"
+  },
+  {
+    "name": "primary/background/pressed",
+    "alias": "brand/secondary/800",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL",
+      "STROKE_COLOR"
+    ],
+    "description": "Background color for primary interactive elements while pressed or activated.",
+    "codeSyntax": "var(--color-interaction-primary-background-pressed)"
+  },
+  {
+    "name": "primary/foreground/default",
+    "alias": "base/white",
+    "scopes": [
+      "SHAPE_FILL",
+      "TEXT_FILL"
+    ],
+    "description": "Text, icon, and selection indicator color on primary interactive backgrounds.",
+    "codeSyntax": "var(--color-interaction-primary-foreground-default)"
+  },
+  {
+    "name": "primary/foreground/disabled",
+    "alias": "neutral/600",
+    "scopes": [
+      "SHAPE_FILL",
+      "TEXT_FILL"
+    ],
+    "description": "Text, icon, and selection indicator color for disabled primary interactive elements.",
+    "codeSyntax": "var(--color-interaction-primary-foreground-disabled)"
+  }
+];
 
-const semantic = definitionsToTokens(semanticDefinitions);
-const interaction = definitionsToTokens(interactionDefinitions);
-
-const component = [];
-const addComponent = (name, alias, scopes) => component.push({
-  name,
-  alias,
-  scopes,
-  description: `Color for the ${name.replaceAll("/", " ")} role.`
-});
-
-const fillScopes = ["FRAME_FILL", "SHAPE_FILL"];
-const foregroundScopes = ["SHAPE_FILL", "TEXT_FILL"];
-const strokeScopes = ["STROKE_COLOR"];
-const states = ["default", "hover", "pressed", "focus", "disabled", "loading"];
-
-const primaryBackground = {
-  default: "primary/background/default",
-  hover: "primary/background/hover",
-  pressed: "primary/background/pressed",
-  focus: "primary/background/focus",
-  disabled: "primary/background/disabled",
-  loading: "primary/background/default"
-};
-states.forEach((state) => addComponent(`button/primary/background/${state}`, primaryBackground[state], fillScopes));
-["default", "hover", "pressed", "focus"].forEach((state) => addComponent(`button/primary/foreground/${state}`, "primary/foreground/default", foregroundScopes));
-addComponent("button/primary/foreground/disabled", "primary/foreground/disabled", foregroundScopes);
-addComponent("button/primary/loader/track", "primary/foreground/default", strokeScopes);
-addComponent("button/primary/loader/indicator", "primary/foreground/default", strokeScopes);
-
-const secondaryBackground = {
-  default: "background/surface",
-  hover: "background/surface",
-  pressed: "background/surface",
-  focus: "background/surface",
-  disabled: "gray/50",
-  loading: "background/surface"
-};
-states.forEach((state) => addComponent(`button/secondary/background/${state}`, secondaryBackground[state], fillScopes));
-const secondaryForeground = {
-  default: "Text & Icons/primary",
-  hover: "brand/primary/700",
-  pressed: "brand/secondary/800",
-  focus: "brand/primary/700",
-  disabled: "Text & Icons/disabled"
-};
-Object.entries(secondaryForeground).forEach(([state, alias]) => addComponent(`button/secondary/foreground/${state}`, alias, foregroundScopes));
-const secondaryBorder = {
-  default: "border/default",
-  hover: "border/hover",
-  pressed: "brand/secondary/800",
-  focus: "border/focus",
-  disabled: "gray/300",
-  loading: "border/default"
-};
-states.forEach((state) => addComponent(`button/secondary/border/${state}`, secondaryBorder[state], strokeScopes));
-addComponent("button/secondary/loader/track", "Text & Icons/secondary", strokeScopes);
-addComponent("button/secondary/loader/indicator", "neutral/400", strokeScopes);
-
-const dangerBackground = {
-  default: "red/800",
-  hover: "red/500",
-  pressed: "red/900",
-  focus: "red/500",
-  disabled: "brand/secondary/50",
-  loading: "red/800"
-};
-states.forEach((state) => addComponent(`button/danger/background/${state}`, dangerBackground[state], fillScopes));
-["default", "hover", "pressed", "focus"].forEach((state) => addComponent(`button/danger/foreground/${state}`, "Text & Icons/inverse", foregroundScopes));
-addComponent("button/danger/foreground/disabled", "Text & Icons/disabled", foregroundScopes);
-addComponent("button/danger/loader/track", "Text & Icons/inverse", strokeScopes);
-addComponent("button/danger/loader/indicator", "Text & Icons/inverse", strokeScopes);
-
-const warningBackground = {
-  default: "yellow/300",
-  hover: "yellow/200",
-  pressed: "yellow/500",
-  focus: "yellow/200",
-  disabled: "brand/secondary/50",
-  loading: "yellow/300"
-};
-states.forEach((state) => addComponent(`button/warning/background/${state}`, warningBackground[state], fillScopes));
-["default", "hover", "pressed", "focus"].forEach((state) => addComponent(`button/warning/foreground/${state}`, "Text & Icons/primary", foregroundScopes));
-addComponent("button/warning/foreground/disabled", "Text & Icons/disabled", foregroundScopes);
-addComponent("button/warning/loader/track", "yellow/600", strokeScopes);
-addComponent("button/warning/loader/indicator", "yellow/800", strokeScopes);
-addComponent("button/focus-ring", "border/focus", strokeScopes);
-
-const glassBackground = {
-  default: "background/glass",
-  hover: "alpha/blue/08",
-  pressed: "background/glass",
-  focus: "alpha/blue/08",
-  disabled: "background/glass",
-  loading: "background/glass"
-};
-Object.entries(glassBackground).forEach(([state, alias]) => addComponent(`button-glass/secondary/background/${state}`, alias, fillScopes));
-const glassForeground = {
-  default: "Text & Icons/primary",
-  hover: "brand/primary/700",
-  pressed: "brand/secondary/800",
-  focus: "brand/primary/700",
-  disabled: "Text & Icons/secondary"
-};
-Object.entries(glassForeground).forEach(([state, alias]) => addComponent(`button-glass/secondary/foreground/${state}`, alias, foregroundScopes));
-addComponent("button-glass/secondary/loader/track", "Text & Icons/secondary", strokeScopes);
-addComponent("button-glass/secondary/loader/indicator", "neutral/500", strokeScopes);
-addComponent("button-glass/focus-ring", "border/focus", strokeScopes);
-
-const selectionStates = {
-  default: "primary/background/default",
-  hover: "primary/background/hover",
-  focus: "primary/background/focus",
-  disabled: "primary/background/disabled"
-};
-Object.entries(selectionStates).forEach(([state, alias]) => addComponent(`checkbox/background/selected/${state}`, alias, fillScopes));
-["default", "hover", "focus"].forEach((state) => addComponent(`checkbox/indicator/${state}`, "primary/foreground/default", fillScopes));
-addComponent("checkbox/indicator/disabled", "primary/foreground/disabled", fillScopes);
-const controlBorders = {
-  default: "border/default",
-  hover: "border/hover",
-  focus: "border/focus",
-  disabled: "border/disabled"
-};
-Object.entries(controlBorders).forEach(([state, alias]) => addComponent(`checkbox/border/unselected/${state}`, alias, strokeScopes));
-addComponent("checkbox/focus-ring", "border/focus", strokeScopes);
-
-Object.entries(selectionStates).forEach(([state, alias]) => {
-  addComponent(`radio/indicator/selected/${state}`, alias, fillScopes);
-  addComponent(`radio/border/selected/${state}`, alias, strokeScopes);
-});
-Object.entries(controlBorders).forEach(([state, alias]) => addComponent(`radio/border/unselected/${state}`, alias, strokeScopes));
-addComponent("radio/focus-ring", "border/focus", strokeScopes);
-
-Object.entries(selectionStates).forEach(([state, alias]) => addComponent(`switch/track/on/${state}`, alias, fillScopes));
-const switchOffTrack = {
-  default: "neutral/500",
-  hover: "brand/secondary/800",
-  focus: "neutral/500",
-  disabled: "border/default"
-};
-Object.entries(switchOffTrack).forEach(([state, alias]) => addComponent(`switch/track/off/${state}`, alias, strokeScopes));
-["default", "hover", "focus"].forEach((state) => addComponent(`switch/thumb/on/${state}`, "primary/foreground/default", fillScopes));
-addComponent("switch/thumb/on/disabled", "primary/foreground/disabled", fillScopes);
-["default", "hover", "focus", "disabled"].forEach((state) => addComponent(`switch/thumb/off/${state}`, "neutral/500", fillScopes));
-addComponent("switch/focus-ring", "border/focus", strokeScopes);
+const component = [
+  {
+    "name": "badge/blue/background",
+    "alias": "status/info/background",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL"
+    ],
+    "description": "Color for the badge blue background role.",
+    "codeSyntax": "var(--color-component-badge-blue-background)"
+  },
+  {
+    "name": "badge/blue/foreground",
+    "alias": "status/info/foreground",
+    "scopes": [
+      "SHAPE_FILL",
+      "TEXT_FILL"
+    ],
+    "description": "Color for the badge blue foreground role.",
+    "codeSyntax": "var(--color-component-badge-blue-foreground)"
+  },
+  {
+    "name": "badge/deep-blue/background",
+    "alias": "brand/secondary/400",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL"
+    ],
+    "description": "Color for the badge deep-blue background role.",
+    "codeSyntax": "var(--color-component-badge-deep-blue-background)"
+  },
+  {
+    "name": "badge/deep-blue/foreground",
+    "alias": "text & Icons/inverse",
+    "scopes": [
+      "SHAPE_FILL",
+      "TEXT_FILL"
+    ],
+    "description": "Color for the badge deep-blue foreground role.",
+    "codeSyntax": "var(--color-component-badge-deep-blue-foreground)"
+  },
+  {
+    "name": "badge/gray/background",
+    "alias": "gray/200",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL"
+    ],
+    "description": "Color for the badge gray background role.",
+    "codeSyntax": "var(--color-component-badge-gray-background)"
+  },
+  {
+    "name": "badge/gray/dot",
+    "alias": "neutral/600",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL"
+    ],
+    "description": "Color for the badge gray dot role.",
+    "codeSyntax": "var(--color-component-badge-gray-dot)"
+  },
+  {
+    "name": "badge/gray/foreground",
+    "alias": "text & Icons/primary",
+    "scopes": [
+      "SHAPE_FILL",
+      "TEXT_FILL"
+    ],
+    "description": "Color for the badge gray foreground role.",
+    "codeSyntax": "var(--color-component-badge-gray-foreground)"
+  },
+  {
+    "name": "badge/green/background",
+    "alias": "status/success/background",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL"
+    ],
+    "description": "Color for the badge green background role.",
+    "codeSyntax": "var(--color-component-badge-green-background)"
+  },
+  {
+    "name": "badge/green/foreground",
+    "alias": "status/success/foreground",
+    "scopes": [
+      "SHAPE_FILL",
+      "TEXT_FILL"
+    ],
+    "description": "Color for the badge green foreground role.",
+    "codeSyntax": "var(--color-component-badge-green-foreground)"
+  },
+  {
+    "name": "badge/orange/background",
+    "alias": "orange/300",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL"
+    ],
+    "description": "Color for the badge orange background role.",
+    "codeSyntax": "var(--color-component-badge-orange-background)"
+  },
+  {
+    "name": "badge/orange/foreground",
+    "alias": "text & Icons/primary",
+    "scopes": [
+      "SHAPE_FILL",
+      "TEXT_FILL"
+    ],
+    "description": "Color for the badge orange foreground role.",
+    "codeSyntax": "var(--color-component-badge-orange-foreground)"
+  },
+  {
+    "name": "badge/red/background",
+    "alias": "status/danger/background",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL"
+    ],
+    "description": "Color for the badge red background role.",
+    "codeSyntax": "var(--color-component-badge-red-background)"
+  },
+  {
+    "name": "badge/red/foreground",
+    "alias": "status/danger/foreground",
+    "scopes": [
+      "SHAPE_FILL",
+      "TEXT_FILL"
+    ],
+    "description": "Color for the badge red foreground role.",
+    "codeSyntax": "var(--color-component-badge-red-foreground)"
+  },
+  {
+    "name": "badge/white/background",
+    "alias": "background/surface",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL"
+    ],
+    "description": "Color for the badge white background role.",
+    "codeSyntax": "var(--color-component-badge-white-background)"
+  },
+  {
+    "name": "badge/white/foreground",
+    "alias": "text & Icons/primary",
+    "scopes": [
+      "SHAPE_FILL",
+      "TEXT_FILL"
+    ],
+    "description": "Color for the badge white foreground role.",
+    "codeSyntax": "var(--color-component-badge-white-foreground)"
+  },
+  {
+    "name": "badge/yellow/background",
+    "alias": "status/warning/background",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL"
+    ],
+    "description": "Color for the badge yellow background role.",
+    "codeSyntax": "var(--color-component-badge-yellow-background)"
+  },
+  {
+    "name": "badge/yellow/foreground",
+    "alias": "status/warning/foreground",
+    "scopes": [
+      "SHAPE_FILL",
+      "TEXT_FILL"
+    ],
+    "description": "Color for the badge yellow foreground role.",
+    "codeSyntax": "var(--color-component-badge-yellow-foreground)"
+  },
+  {
+    "name": "button-glass/secondary/background/default",
+    "alias": "background/glass",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL"
+    ],
+    "description": "Color for the button-glass secondary background default role.",
+    "codeSyntax": "var(--color-component-button-glass-secondary-background-default)"
+  },
+  {
+    "name": "button-glass/secondary/background/disabled",
+    "alias": "background/glass",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL"
+    ],
+    "description": "Color for the button-glass secondary background disabled role.",
+    "codeSyntax": "var(--color-component-button-glass-secondary-background-disabled)"
+  },
+  {
+    "name": "button-glass/secondary/background/focus",
+    "alias": "alpha/blue/08",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL"
+    ],
+    "description": "Color for the button-glass secondary background focus role.",
+    "codeSyntax": "var(--color-component-button-glass-secondary-background-focus)"
+  },
+  {
+    "name": "button-glass/secondary/background/hover",
+    "alias": "alpha/blue/08",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL"
+    ],
+    "description": "Color for the button-glass secondary background hover role.",
+    "codeSyntax": "var(--color-component-button-glass-secondary-background-hover)"
+  },
+  {
+    "name": "button-glass/secondary/background/loading",
+    "alias": "background/glass",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL"
+    ],
+    "description": "Color for the button-glass secondary background loading role.",
+    "codeSyntax": "var(--color-component-button-glass-secondary-background-loading)"
+  },
+  {
+    "name": "button-glass/secondary/background/pressed",
+    "alias": "background/selected-strong",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL"
+    ],
+    "description": "Color for the button-glass secondary background pressed role.",
+    "codeSyntax": "var(--color-component-button-glass-secondary-background-pressed)"
+  },
+  {
+    "name": "button-glass/secondary/foreground/default",
+    "alias": "text & Icons/primary",
+    "scopes": [
+      "SHAPE_FILL",
+      "TEXT_FILL"
+    ],
+    "description": "Color for the button-glass secondary foreground default role.",
+    "codeSyntax": "var(--color-component-button-glass-secondary-foreground-default)"
+  },
+  {
+    "name": "button-glass/secondary/foreground/disabled",
+    "alias": "text & Icons/secondary",
+    "scopes": [
+      "SHAPE_FILL",
+      "TEXT_FILL"
+    ],
+    "description": "Color for the button-glass secondary foreground disabled role.",
+    "codeSyntax": "var(--color-component-button-glass-secondary-foreground-disabled)"
+  },
+  {
+    "name": "button-glass/secondary/foreground/focus",
+    "alias": "brand/primary/700",
+    "scopes": [
+      "SHAPE_FILL",
+      "TEXT_FILL"
+    ],
+    "description": "Color for the button-glass secondary foreground focus role.",
+    "codeSyntax": "var(--color-component-button-glass-secondary-foreground-focus)"
+  },
+  {
+    "name": "button-glass/secondary/foreground/hover",
+    "alias": "brand/primary/700",
+    "scopes": [
+      "SHAPE_FILL",
+      "TEXT_FILL"
+    ],
+    "description": "Color for the button-glass secondary foreground hover role.",
+    "codeSyntax": "var(--color-component-button-glass-secondary-foreground-hover)"
+  },
+  {
+    "name": "button-glass/secondary/foreground/pressed",
+    "alias": "brand/secondary/800",
+    "scopes": [
+      "SHAPE_FILL",
+      "TEXT_FILL"
+    ],
+    "description": "Color for the button-glass secondary foreground pressed role.",
+    "codeSyntax": "var(--color-component-button-glass-secondary-foreground-pressed)"
+  },
+  {
+    "name": "button/danger/background/default",
+    "alias": "red/800",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL"
+    ],
+    "description": "Color for the button danger background default role.",
+    "codeSyntax": "var(--color-component-button-danger-background-default)"
+  },
+  {
+    "name": "button/danger/background/disabled",
+    "alias": "brand/secondary/50",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL"
+    ],
+    "description": "Color for the button danger background disabled role.",
+    "codeSyntax": "var(--color-component-button-danger-background-disabled)"
+  },
+  {
+    "name": "button/danger/background/focus",
+    "alias": "red/500",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL"
+    ],
+    "description": "Color for the button danger background focus role.",
+    "codeSyntax": "var(--color-component-button-danger-background-focus)"
+  },
+  {
+    "name": "button/danger/background/hover",
+    "alias": "red/500",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL"
+    ],
+    "description": "Color for the button danger background hover role.",
+    "codeSyntax": "var(--color-component-button-danger-background-hover)"
+  },
+  {
+    "name": "button/danger/background/loading",
+    "alias": "red/800",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL"
+    ],
+    "description": "Color for the button danger background loading role.",
+    "codeSyntax": "var(--color-component-button-danger-background-loading)"
+  },
+  {
+    "name": "button/danger/background/pressed",
+    "alias": "red/900",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL"
+    ],
+    "description": "Color for the button danger background pressed role.",
+    "codeSyntax": "var(--color-component-button-danger-background-pressed)"
+  },
+  {
+    "name": "button/danger/foreground/default",
+    "alias": "text & Icons/inverse",
+    "scopes": [
+      "SHAPE_FILL",
+      "TEXT_FILL"
+    ],
+    "description": "Color for the button danger foreground default role.",
+    "codeSyntax": "var(--color-component-button-danger-foreground-default)"
+  },
+  {
+    "name": "button/danger/foreground/disabled",
+    "alias": "text & Icons/disabled",
+    "scopes": [
+      "SHAPE_FILL",
+      "TEXT_FILL"
+    ],
+    "description": "Color for the button danger foreground disabled role.",
+    "codeSyntax": "var(--color-component-button-danger-foreground-disabled)"
+  },
+  {
+    "name": "button/danger/foreground/focus",
+    "alias": "text & Icons/inverse",
+    "scopes": [
+      "SHAPE_FILL",
+      "TEXT_FILL"
+    ],
+    "description": "Color for the button danger foreground focus role.",
+    "codeSyntax": "var(--color-component-button-danger-foreground-focus)"
+  },
+  {
+    "name": "button/danger/foreground/hover",
+    "alias": "text & Icons/inverse",
+    "scopes": [
+      "SHAPE_FILL",
+      "TEXT_FILL"
+    ],
+    "description": "Color for the button danger foreground hover role.",
+    "codeSyntax": "var(--color-component-button-danger-foreground-hover)"
+  },
+  {
+    "name": "button/danger/foreground/pressed",
+    "alias": "text & Icons/inverse",
+    "scopes": [
+      "SHAPE_FILL",
+      "TEXT_FILL"
+    ],
+    "description": "Color for the button danger foreground pressed role.",
+    "codeSyntax": "var(--color-component-button-danger-foreground-pressed)"
+  },
+  {
+    "name": "button/primary/background/default",
+    "alias": "primary/background/default",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL"
+    ],
+    "description": "Color for the button primary background default role.",
+    "codeSyntax": "var(--color-component-button-primary-background-default)"
+  },
+  {
+    "name": "button/primary/background/disabled",
+    "alias": "brand/secondary/50",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL"
+    ],
+    "description": "Color for the button primary background disabled role.",
+    "codeSyntax": "var(--color-component-button-primary-background-disabled)"
+  },
+  {
+    "name": "button/primary/background/focus",
+    "alias": "primary/background/focus",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL"
+    ],
+    "description": "Color for the button primary background focus role.",
+    "codeSyntax": "var(--color-component-button-primary-background-focus)"
+  },
+  {
+    "name": "button/primary/background/hover",
+    "alias": "primary/background/hover",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL"
+    ],
+    "description": "Color for the button primary background hover role.",
+    "codeSyntax": "var(--color-component-button-primary-background-hover)"
+  },
+  {
+    "name": "button/primary/background/loading",
+    "alias": "primary/background/default",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL"
+    ],
+    "description": "Color for the button primary background loading role.",
+    "codeSyntax": "var(--color-component-button-primary-background-loading)"
+  },
+  {
+    "name": "button/primary/background/pressed",
+    "alias": "primary/background/pressed",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL"
+    ],
+    "description": "Color for the button primary background pressed role.",
+    "codeSyntax": "var(--color-component-button-primary-background-pressed)"
+  },
+  {
+    "name": "button/primary/foreground/default",
+    "alias": "primary/foreground/default",
+    "scopes": [
+      "SHAPE_FILL",
+      "TEXT_FILL"
+    ],
+    "description": "Color for the button primary foreground default role.",
+    "codeSyntax": "var(--color-component-button-primary-foreground-default)"
+  },
+  {
+    "name": "button/primary/foreground/disabled",
+    "alias": "primary/foreground/disabled",
+    "scopes": [
+      "SHAPE_FILL",
+      "TEXT_FILL"
+    ],
+    "description": "Color for the button primary foreground disabled role.",
+    "codeSyntax": "var(--color-component-button-primary-foreground-disabled)"
+  },
+  {
+    "name": "button/primary/foreground/focus",
+    "alias": "primary/foreground/default",
+    "scopes": [
+      "SHAPE_FILL",
+      "TEXT_FILL"
+    ],
+    "description": "Color for the button primary foreground focus role.",
+    "codeSyntax": "var(--color-component-button-primary-foreground-focus)"
+  },
+  {
+    "name": "button/primary/foreground/hover",
+    "alias": "primary/foreground/default",
+    "scopes": [
+      "SHAPE_FILL",
+      "TEXT_FILL"
+    ],
+    "description": "Color for the button primary foreground hover role.",
+    "codeSyntax": "var(--color-component-button-primary-foreground-hover)"
+  },
+  {
+    "name": "button/primary/foreground/pressed",
+    "alias": "primary/foreground/default",
+    "scopes": [
+      "SHAPE_FILL",
+      "TEXT_FILL"
+    ],
+    "description": "Color for the button primary foreground pressed role.",
+    "codeSyntax": "var(--color-component-button-primary-foreground-pressed)"
+  },
+  {
+    "name": "button/secondary/background/default",
+    "alias": "background/surface",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL"
+    ],
+    "description": "Color for the button secondary background default role.",
+    "codeSyntax": "var(--color-component-button-secondary-background-default)"
+  },
+  {
+    "name": "button/secondary/background/disabled",
+    "alias": "gray/50",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL"
+    ],
+    "description": "Color for the button secondary background disabled role.",
+    "codeSyntax": "var(--color-component-button-secondary-background-disabled)"
+  },
+  {
+    "name": "button/secondary/background/focus",
+    "alias": "background/surface",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL"
+    ],
+    "description": "Color for the button secondary background focus role.",
+    "codeSyntax": "var(--color-component-button-secondary-background-focus)"
+  },
+  {
+    "name": "button/secondary/background/hover",
+    "alias": "background/surface",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL"
+    ],
+    "description": "Color for the button secondary background hover role.",
+    "codeSyntax": "var(--color-component-button-secondary-background-hover)"
+  },
+  {
+    "name": "button/secondary/background/loading",
+    "alias": "background/surface",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL"
+    ],
+    "description": "Color for the button secondary background loading role.",
+    "codeSyntax": "var(--color-component-button-secondary-background-loading)"
+  },
+  {
+    "name": "button/secondary/background/pressed",
+    "alias": "background/surface",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL"
+    ],
+    "description": "Color for the button secondary background pressed role.",
+    "codeSyntax": "var(--color-component-button-secondary-background-pressed)"
+  },
+  {
+    "name": "button/secondary/border/default",
+    "alias": "border/default",
+    "scopes": [
+      "STROKE_COLOR"
+    ],
+    "description": "Color for the button secondary border default role.",
+    "codeSyntax": "var(--color-component-button-secondary-border-default)"
+  },
+  {
+    "name": "button/secondary/border/disabled",
+    "alias": "gray/300",
+    "scopes": [
+      "STROKE_COLOR"
+    ],
+    "description": "Color for the button secondary border disabled role.",
+    "codeSyntax": "var(--color-component-button-secondary-border-disabled)"
+  },
+  {
+    "name": "button/secondary/border/focus",
+    "alias": "border/focus",
+    "scopes": [
+      "STROKE_COLOR"
+    ],
+    "description": "Color for the button secondary border focus role.",
+    "codeSyntax": "var(--color-component-button-secondary-border-focus)"
+  },
+  {
+    "name": "button/secondary/border/hover",
+    "alias": "border/hover",
+    "scopes": [
+      "STROKE_COLOR"
+    ],
+    "description": "Color for the button secondary border hover role.",
+    "codeSyntax": "var(--color-component-button-secondary-border-hover)"
+  },
+  {
+    "name": "button/secondary/border/loading",
+    "alias": "border/default",
+    "scopes": [
+      "STROKE_COLOR"
+    ],
+    "description": "Color for the button secondary border loading role.",
+    "codeSyntax": "var(--color-component-button-secondary-border-loading)"
+  },
+  {
+    "name": "button/secondary/border/pressed",
+    "alias": "brand/secondary/800",
+    "scopes": [
+      "STROKE_COLOR"
+    ],
+    "description": "Color for the button secondary border pressed role.",
+    "codeSyntax": "var(--color-component-button-secondary-border-pressed)"
+  },
+  {
+    "name": "button/secondary/foreground/default",
+    "alias": "text & Icons/primary",
+    "scopes": [
+      "SHAPE_FILL",
+      "TEXT_FILL"
+    ],
+    "description": "Color for the button secondary foreground default role.",
+    "codeSyntax": "var(--color-component-button-secondary-foreground-default)"
+  },
+  {
+    "name": "button/secondary/foreground/disabled",
+    "alias": "text & Icons/disabled",
+    "scopes": [
+      "SHAPE_FILL",
+      "TEXT_FILL"
+    ],
+    "description": "Color for the button secondary foreground disabled role.",
+    "codeSyntax": "var(--color-component-button-secondary-foreground-disabled)"
+  },
+  {
+    "name": "button/secondary/foreground/focus",
+    "alias": "brand/primary/700",
+    "scopes": [
+      "SHAPE_FILL",
+      "TEXT_FILL"
+    ],
+    "description": "Color for the button secondary foreground focus role.",
+    "codeSyntax": "var(--color-component-button-secondary-foreground-focus)"
+  },
+  {
+    "name": "button/secondary/foreground/hover",
+    "alias": "brand/primary/700",
+    "scopes": [
+      "SHAPE_FILL",
+      "TEXT_FILL"
+    ],
+    "description": "Color for the button secondary foreground hover role.",
+    "codeSyntax": "var(--color-component-button-secondary-foreground-hover)"
+  },
+  {
+    "name": "button/secondary/foreground/pressed",
+    "alias": "brand/secondary/800",
+    "scopes": [
+      "SHAPE_FILL",
+      "TEXT_FILL"
+    ],
+    "description": "Color for the button secondary foreground pressed role.",
+    "codeSyntax": "var(--color-component-button-secondary-foreground-pressed)"
+  },
+  {
+    "name": "button/warning/background/default",
+    "alias": "yellow/300",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL"
+    ],
+    "description": "Color for the button warning background default role.",
+    "codeSyntax": "var(--color-component-button-warning-background-default)"
+  },
+  {
+    "name": "button/warning/background/disabled",
+    "alias": "brand/secondary/50",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL"
+    ],
+    "description": "Color for the button warning background disabled role.",
+    "codeSyntax": "var(--color-component-button-warning-background-disabled)"
+  },
+  {
+    "name": "button/warning/background/focus",
+    "alias": "yellow/200",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL"
+    ],
+    "description": "Color for the button warning background focus role.",
+    "codeSyntax": "var(--color-component-button-warning-background-focus)"
+  },
+  {
+    "name": "button/warning/background/hover",
+    "alias": "yellow/200",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL"
+    ],
+    "description": "Color for the button warning background hover role.",
+    "codeSyntax": "var(--color-component-button-warning-background-hover)"
+  },
+  {
+    "name": "button/warning/background/loading",
+    "alias": "yellow/300",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL"
+    ],
+    "description": "Color for the button warning background loading role.",
+    "codeSyntax": "var(--color-component-button-warning-background-loading)"
+  },
+  {
+    "name": "button/warning/background/pressed",
+    "alias": "yellow/500",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL"
+    ],
+    "description": "Color for the button warning background pressed role.",
+    "codeSyntax": "var(--color-component-button-warning-background-pressed)"
+  },
+  {
+    "name": "button/warning/foreground/default",
+    "alias": "text & Icons/primary",
+    "scopes": [
+      "SHAPE_FILL",
+      "TEXT_FILL"
+    ],
+    "description": "Color for the button warning foreground default role.",
+    "codeSyntax": "var(--color-component-button-warning-foreground-default)"
+  },
+  {
+    "name": "button/warning/foreground/disabled",
+    "alias": "text & Icons/disabled",
+    "scopes": [
+      "SHAPE_FILL",
+      "TEXT_FILL"
+    ],
+    "description": "Color for the button warning foreground disabled role.",
+    "codeSyntax": "var(--color-component-button-warning-foreground-disabled)"
+  },
+  {
+    "name": "button/warning/foreground/focus",
+    "alias": "text & Icons/primary",
+    "scopes": [
+      "SHAPE_FILL",
+      "TEXT_FILL"
+    ],
+    "description": "Color for the button warning foreground focus role.",
+    "codeSyntax": "var(--color-component-button-warning-foreground-focus)"
+  },
+  {
+    "name": "button/warning/foreground/hover",
+    "alias": "text & Icons/primary",
+    "scopes": [
+      "SHAPE_FILL",
+      "TEXT_FILL"
+    ],
+    "description": "Color for the button warning foreground hover role.",
+    "codeSyntax": "var(--color-component-button-warning-foreground-hover)"
+  },
+  {
+    "name": "button/warning/foreground/pressed",
+    "alias": "text & Icons/primary",
+    "scopes": [
+      "SHAPE_FILL",
+      "TEXT_FILL"
+    ],
+    "description": "Color for the button warning foreground pressed role.",
+    "codeSyntax": "var(--color-component-button-warning-foreground-pressed)"
+  },
+  {
+    "name": "chip/background/deep-blue/default",
+    "alias": "brand/primary/100",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL"
+    ],
+    "description": "Background color for the deep-blue Chip in the default state.",
+    "codeSyntax": "var(--color-component-chip-background-deep-blue-default)"
+  },
+  {
+    "name": "chip/background/deep-blue/focused",
+    "alias": "brand/primary/100",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL"
+    ],
+    "description": "Background color for the deep-blue Chip in the focused state.",
+    "codeSyntax": "var(--color-component-chip-background-deep-blue-focused)"
+  },
+  {
+    "name": "chip/background/deep-blue/hover",
+    "alias": "brand/primary/200",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL"
+    ],
+    "description": "Background color for the deep-blue Chip in the hover state.",
+    "codeSyntax": "var(--color-component-chip-background-deep-blue-hover)"
+  },
+  {
+    "name": "chip/background/deep-blue/pressed",
+    "alias": "brand/primary/200",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL"
+    ],
+    "description": "Background color for the deep-blue Chip in the pressed state.",
+    "codeSyntax": "var(--color-component-chip-background-deep-blue-pressed)"
+  },
+  {
+    "name": "chip/background/default/default",
+    "alias": "neutral/50",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL"
+    ],
+    "description": "Background color for the default Chip in the default state.",
+    "codeSyntax": "var(--color-component-chip-background-default-default)"
+  },
+  {
+    "name": "chip/background/default/focused",
+    "alias": "neutral/50",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL"
+    ],
+    "description": "Background color for the default Chip in the focused state.",
+    "codeSyntax": "var(--color-component-chip-background-default-focused)"
+  },
+  {
+    "name": "chip/background/default/hover",
+    "alias": "neutral/100",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL"
+    ],
+    "description": "Background color for the default Chip in the hover state.",
+    "codeSyntax": "var(--color-component-chip-background-default-hover)"
+  },
+  {
+    "name": "chip/background/default/pressed",
+    "alias": "neutral/100",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL"
+    ],
+    "description": "Background color for the default Chip in the pressed state.",
+    "codeSyntax": "var(--color-component-chip-background-default-pressed)"
+  },
+  {
+    "name": "chip/background/green/default",
+    "alias": "green/100",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL"
+    ],
+    "description": "Background color for the green Chip in the default state.",
+    "codeSyntax": "var(--color-component-chip-background-green-default)"
+  },
+  {
+    "name": "chip/background/green/focused",
+    "alias": "green/200",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL"
+    ],
+    "description": "Background color for the green Chip in the focused state.",
+    "codeSyntax": "var(--color-component-chip-background-green-focused)"
+  },
+  {
+    "name": "chip/background/green/hover",
+    "alias": "green/200",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL"
+    ],
+    "description": "Background color for the green Chip in the hover state.",
+    "codeSyntax": "var(--color-component-chip-background-green-hover)"
+  },
+  {
+    "name": "chip/background/green/pressed",
+    "alias": "green/200",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL"
+    ],
+    "description": "Background color for the green Chip in the pressed state.",
+    "codeSyntax": "var(--color-component-chip-background-green-pressed)"
+  },
+  {
+    "name": "chip/background/red/default",
+    "alias": "red/100",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL"
+    ],
+    "description": "Background color for the red Chip in the default state.",
+    "codeSyntax": "var(--color-component-chip-background-red-default)"
+  },
+  {
+    "name": "chip/background/red/focused",
+    "alias": "red/100",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL"
+    ],
+    "description": "Background color for the red Chip in the focused state.",
+    "codeSyntax": "var(--color-component-chip-background-red-focused)"
+  },
+  {
+    "name": "chip/background/red/hover",
+    "alias": "red/300",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL"
+    ],
+    "description": "Background color for the red Chip in the hover state.",
+    "codeSyntax": "var(--color-component-chip-background-red-hover)"
+  },
+  {
+    "name": "chip/background/red/pressed",
+    "alias": "red/300",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL"
+    ],
+    "description": "Background color for the red Chip in the pressed state.",
+    "codeSyntax": "var(--color-component-chip-background-red-pressed)"
+  },
+  {
+    "name": "chip/background/yellow/default",
+    "alias": "yellow/200",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL"
+    ],
+    "description": "Background color for the yellow Chip in the default state.",
+    "codeSyntax": "var(--color-component-chip-background-yellow-default)"
+  },
+  {
+    "name": "chip/background/yellow/focused",
+    "alias": "yellow/200",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL"
+    ],
+    "description": "Background color for the yellow Chip in the focused state.",
+    "codeSyntax": "var(--color-component-chip-background-yellow-focused)"
+  },
+  {
+    "name": "chip/background/yellow/hover",
+    "alias": "yellow/300",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL"
+    ],
+    "description": "Background color for the yellow Chip in the hover state.",
+    "codeSyntax": "var(--color-component-chip-background-yellow-hover)"
+  },
+  {
+    "name": "chip/background/yellow/pressed",
+    "alias": "yellow/300",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL"
+    ],
+    "description": "Background color for the yellow Chip in the pressed state.",
+    "codeSyntax": "var(--color-component-chip-background-yellow-pressed)"
+  },
+  {
+    "name": "chip/foreground/deep-blue",
+    "alias": "brand/secondary/800",
+    "scopes": [
+      "SHAPE_FILL",
+      "TEXT_FILL"
+    ],
+    "description": "Color for the label and delete icon in the deep-blue Chip.",
+    "codeSyntax": "var(--color-component-chip-foreground-deep-blue)"
+  },
+  {
+    "name": "chip/foreground/default",
+    "alias": "neutral/900",
+    "scopes": [
+      "SHAPE_FILL",
+      "TEXT_FILL"
+    ],
+    "description": "Color for the label and delete icon in the default Chip.",
+    "codeSyntax": "var(--color-component-chip-foreground-default)"
+  },
+  {
+    "name": "chip/foreground/green",
+    "alias": "green/900",
+    "scopes": [
+      "SHAPE_FILL",
+      "TEXT_FILL"
+    ],
+    "description": "Color for the label and delete icon in the green Chip.",
+    "codeSyntax": "var(--color-component-chip-foreground-green)"
+  },
+  {
+    "name": "chip/foreground/red",
+    "alias": "neutral/900",
+    "scopes": [
+      "SHAPE_FILL",
+      "TEXT_FILL"
+    ],
+    "description": "Color for the label and delete icon in the red Chip.",
+    "codeSyntax": "var(--color-component-chip-foreground-red)"
+  },
+  {
+    "name": "chip/foreground/yellow",
+    "alias": "neutral/900",
+    "scopes": [
+      "SHAPE_FILL",
+      "TEXT_FILL"
+    ],
+    "description": "Color for the label and delete icon in the yellow Chip.",
+    "codeSyntax": "var(--color-component-chip-foreground-yellow)"
+  },
+  {
+    "name": "chip/overlay/pressed",
+    "alias": "alpha/black/10",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL"
+    ],
+    "description": "Overlay color applied above the Chip background while pressed.",
+    "codeSyntax": "var(--color-component-chip-overlay-pressed)"
+  },
+  {
+    "name": "combo-input/status/error/default",
+    "alias": "red/600",
+    "scopes": [
+      "SHAPE_FILL",
+      "TEXT_FILL",
+      "STROKE_COLOR"
+    ],
+    "description": "Error color for ComboInput labels, icons, and borders.",
+    "codeSyntax": "var(--color-combo-input-status-error-default)"
+  },
+  {
+    "name": "combo-input/status/error/pressed",
+    "alias": "red/900",
+    "scopes": [
+      "SHAPE_FILL",
+      "TEXT_FILL",
+      "STROKE_COLOR"
+    ],
+    "description": "Pressed error color for ComboInput labels, icons, and borders.",
+    "codeSyntax": "var(--color-combo-input-status-error-pressed)"
+  },
+  {
+    "name": "combo-input/status/success/default",
+    "alias": "green/600",
+    "scopes": [
+      "SHAPE_FILL",
+      "TEXT_FILL",
+      "STROKE_COLOR"
+    ],
+    "description": "Success color for ComboInput labels, icons, and borders.",
+    "codeSyntax": "var(--color-combo-input-status-success-default)"
+  },
+  {
+    "name": "combo-input/status/success/pressed",
+    "alias": "green/900",
+    "scopes": [
+      "SHAPE_FILL",
+      "TEXT_FILL",
+      "STROKE_COLOR"
+    ],
+    "description": "Pressed success color for ComboInput labels, icons, and borders.",
+    "codeSyntax": "var(--color-combo-input-status-success-pressed)"
+  },
+  {
+    "name": "combo-input/status/warning/default",
+    "alias": "orange/600",
+    "scopes": [
+      "SHAPE_FILL",
+      "TEXT_FILL",
+      "STROKE_COLOR"
+    ],
+    "description": "Warning color for ComboInput labels, icons, and borders.",
+    "codeSyntax": "var(--color-combo-input-status-warning-default)"
+  },
+  {
+    "name": "combo-input/status/warning/pressed",
+    "alias": "yellow/900",
+    "scopes": [
+      "SHAPE_FILL",
+      "TEXT_FILL",
+      "STROKE_COLOR"
+    ],
+    "description": "Pressed warning color for ComboInput labels, icons, and borders.",
+    "codeSyntax": "var(--color-combo-input-status-warning-pressed)"
+  },
+  {
+    "name": "discountbox/border/error",
+    "alias": "red/500",
+    "scopes": [
+      "STROKE_COLOR"
+    ],
+    "description": "Border color for a discount input with an error.",
+    "codeSyntax": "var(--color-discountbox-border-error)"
+  },
+  {
+    "name": "discountbox/foreground/error",
+    "alias": "red/600",
+    "scopes": [
+      "SHAPE_FILL",
+      "TEXT_FILL"
+    ],
+    "description": "Text color for discount input error messages.",
+    "codeSyntax": "var(--color-discountbox-foreground-error)"
+  },
+  {
+    "name": "discountbox/unit/background/disabled",
+    "alias": "background/brand-subtle",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL",
+      "STROKE_COLOR"
+    ],
+    "description": "Background and border color for a disabled discount unit.",
+    "codeSyntax": "var(--color-discountbox-unit-background-disabled)"
+  },
+  {
+    "name": "discountbox/unit/currency/default",
+    "alias": "yellow/300",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL",
+      "STROKE_COLOR"
+    ],
+    "description": "Background and border color for the currency unit in its default state.",
+    "codeSyntax": "var(--color-discountbox-unit-currency-default)"
+  },
+  {
+    "name": "discountbox/unit/currency/hover",
+    "alias": "yellow/200",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL",
+      "STROKE_COLOR"
+    ],
+    "description": "Background and border color for the currency unit in its hover state.",
+    "codeSyntax": "var(--color-discountbox-unit-currency-hover)"
+  },
+  {
+    "name": "discountbox/unit/currency/pressed",
+    "alias": "yellow/500",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL",
+      "STROKE_COLOR"
+    ],
+    "description": "Background and border color for the currency unit in its pressed state.",
+    "codeSyntax": "var(--color-discountbox-unit-currency-pressed)"
+  },
+  {
+    "name": "discountbox/unit/foreground/currency",
+    "alias": "text & Icons/primary",
+    "scopes": [
+      "SHAPE_FILL",
+      "TEXT_FILL"
+    ],
+    "description": "Text color for the currency unit.",
+    "codeSyntax": "var(--color-discountbox-unit-foreground-currency)"
+  },
+  {
+    "name": "discountbox/unit/foreground/disabled",
+    "alias": "text & Icons/disabled",
+    "scopes": [
+      "SHAPE_FILL",
+      "TEXT_FILL"
+    ],
+    "description": "Text color for a disabled discount unit.",
+    "codeSyntax": "var(--color-discountbox-unit-foreground-disabled)"
+  },
+  {
+    "name": "discountbox/unit/foreground/percentage",
+    "alias": "text & Icons/inverse",
+    "scopes": [
+      "SHAPE_FILL",
+      "TEXT_FILL"
+    ],
+    "description": "Text color for the percentage unit.",
+    "codeSyntax": "var(--color-discountbox-unit-foreground-percentage)"
+  },
+  {
+    "name": "discountbox/unit/percentage/default",
+    "alias": "brand/primary/700",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL",
+      "STROKE_COLOR"
+    ],
+    "description": "Background and border color for the percentage unit in its default state.",
+    "codeSyntax": "var(--color-discountbox-unit-percentage-default)"
+  },
+  {
+    "name": "discountbox/unit/percentage/hover",
+    "alias": "brand/primary/500",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL",
+      "STROKE_COLOR"
+    ],
+    "description": "Background and border color for the percentage unit in its hover state.",
+    "codeSyntax": "var(--color-discountbox-unit-percentage-hover)"
+  },
+  {
+    "name": "discountbox/unit/percentage/pressed",
+    "alias": "brand/secondary/800",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL",
+      "STROKE_COLOR"
+    ],
+    "description": "Background and border color for the percentage unit in its pressed state.",
+    "codeSyntax": "var(--color-discountbox-unit-percentage-pressed)"
+  },
+  {
+    "name": "field/background/default",
+    "alias": "background/surface",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL"
+    ],
+    "description": "Default surface background for input fields and text areas.",
+    "codeSyntax": "var(--color-field-background-default)"
+  },
+  {
+    "name": "field/background/disabled",
+    "alias": "background/muted",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL"
+    ],
+    "description": "Background for disabled input fields and text areas.",
+    "codeSyntax": "var(--color-field-background-disabled)"
+  },
+  {
+    "name": "field/border/active",
+    "alias": "border/selected",
+    "scopes": [
+      "STROKE_COLOR"
+    ],
+    "description": "Border color for input fields while editing is active.",
+    "codeSyntax": "var(--color-field-border-active)"
+  },
+  {
+    "name": "field/border/default",
+    "alias": "border/default",
+    "scopes": [
+      "STROKE_COLOR"
+    ],
+    "description": "Default border color for input fields and text areas.",
+    "codeSyntax": "var(--color-field-border-default)"
+  },
+  {
+    "name": "field/border/disabled",
+    "alias": "border/disabled",
+    "scopes": [
+      "STROKE_COLOR"
+    ],
+    "description": "Border color for disabled input fields.",
+    "codeSyntax": "var(--color-field-border-disabled)"
+  },
+  {
+    "name": "field/border/error",
+    "alias": "border/danger",
+    "scopes": [
+      "STROKE_COLOR"
+    ],
+    "description": "Border color for invalid input fields.",
+    "codeSyntax": "var(--color-field-border-error)"
+  },
+  {
+    "name": "field/border/focus",
+    "alias": "border/focus",
+    "scopes": [
+      "STROKE_COLOR"
+    ],
+    "description": "Inner border color for focused input fields.",
+    "codeSyntax": "var(--color-field-border-focus)"
+  },
+  {
+    "name": "field/border/hover",
+    "alias": "border/hover",
+    "scopes": [
+      "STROKE_COLOR"
+    ],
+    "description": "Border color for input fields on pointer hover.",
+    "codeSyntax": "var(--color-field-border-hover)"
+  },
+  {
+    "name": "field/foreground/icon/default",
+    "alias": "text & Icons/primary",
+    "scopes": [
+      "SHAPE_FILL",
+      "TEXT_FILL"
+    ],
+    "description": "Default icon color inside input fields.",
+    "codeSyntax": "var(--color-field-foreground-icon-default)"
+  },
+  {
+    "name": "field/foreground/icon/disabled",
+    "alias": "text & Icons/disabled",
+    "scopes": [
+      "SHAPE_FILL",
+      "TEXT_FILL"
+    ],
+    "description": "Icon color inside disabled input fields.",
+    "codeSyntax": "var(--color-field-foreground-icon-disabled)"
+  },
+  {
+    "name": "field/foreground/icon/error",
+    "alias": "text & Icons/danger",
+    "scopes": [
+      "SHAPE_FILL",
+      "TEXT_FILL"
+    ],
+    "description": "Error icon color inside invalid input fields.",
+    "codeSyntax": "var(--color-field-foreground-icon-error)"
+  },
+  {
+    "name": "field/foreground/message/default",
+    "alias": "text & Icons/secondary",
+    "scopes": [
+      "SHAPE_FILL",
+      "TEXT_FILL"
+    ],
+    "description": "Default supporting message color below input fields.",
+    "codeSyntax": "var(--color-field-foreground-message-default)"
+  },
+  {
+    "name": "field/foreground/message/error",
+    "alias": "text & Icons/danger",
+    "scopes": [
+      "SHAPE_FILL",
+      "TEXT_FILL"
+    ],
+    "description": "Error message color below invalid input fields.",
+    "codeSyntax": "var(--color-field-foreground-message-error)"
+  },
+  {
+    "name": "field/foreground/message/success",
+    "alias": "text & Icons/success",
+    "scopes": [
+      "SHAPE_FILL",
+      "TEXT_FILL"
+    ],
+    "description": "Success message color for valid select controls.",
+    "codeSyntax": "var(--color-field-foreground-message-success)"
+  },
+  {
+    "name": "field/foreground/placeholder/default",
+    "alias": "text & Icons/secondary",
+    "scopes": [
+      "SHAPE_FILL",
+      "TEXT_FILL"
+    ],
+    "description": "Placeholder and floating label color for input fields.",
+    "codeSyntax": "var(--color-field-foreground-placeholder-default)"
+  },
+  {
+    "name": "field/foreground/placeholder/disabled",
+    "alias": "text & Icons/disabled",
+    "scopes": [
+      "SHAPE_FILL",
+      "TEXT_FILL"
+    ],
+    "description": "Placeholder color for disabled input fields.",
+    "codeSyntax": "var(--color-field-foreground-placeholder-disabled)"
+  },
+  {
+    "name": "field/foreground/placeholder/focus",
+    "alias": "text & Icons/link/hover",
+    "scopes": [
+      "SHAPE_FILL",
+      "TEXT_FILL"
+    ],
+    "description": "Floating label color for focused input fields.",
+    "codeSyntax": "var(--color-field-foreground-placeholder-focus)"
+  },
+  {
+    "name": "field/foreground/value/active",
+    "alias": "text & Icons/link/hover",
+    "scopes": [
+      "SHAPE_FILL",
+      "TEXT_FILL"
+    ],
+    "description": "Value text color while input editing is active.",
+    "codeSyntax": "var(--color-field-foreground-value-active)"
+  },
+  {
+    "name": "field/foreground/value/default",
+    "alias": "text & Icons/primary",
+    "scopes": [
+      "SHAPE_FILL",
+      "TEXT_FILL"
+    ],
+    "description": "Default value text color for input fields.",
+    "codeSyntax": "var(--color-field-foreground-value-default)"
+  },
+  {
+    "name": "field/foreground/value/disabled",
+    "alias": "text & Icons/disabled",
+    "scopes": [
+      "SHAPE_FILL",
+      "TEXT_FILL"
+    ],
+    "description": "Value text color for disabled input fields.",
+    "codeSyntax": "var(--color-field-foreground-value-disabled)"
+  },
+  {
+    "name": "loader/indicator/default",
+    "alias": "brand/primary/700",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL",
+      "STROKE_COLOR"
+    ],
+    "description": "Indicator color for loaders displayed on light or neutral surfaces.",
+    "codeSyntax": "var(--color-loader-indicator-default)"
+  },
+  {
+    "name": "loader/indicator/inverse",
+    "alias": "text & Icons/inverse",
+    "scopes": [
+      "STROKE_COLOR"
+    ],
+    "description": "Indicator color for loaders displayed on dark or saturated surfaces.",
+    "codeSyntax": "var(--color-loader-indicator-inverse)"
+  },
+  {
+    "name": "loader/indicator/warning",
+    "alias": "yellow/800",
+    "scopes": [
+      "STROKE_COLOR"
+    ],
+    "description": "Indicator color for loaders displayed on warning-colored surfaces.",
+    "codeSyntax": "var(--color-loader-indicator-warning)"
+  },
+  {
+    "name": "loader/track/default",
+    "alias": "background/brand-subtle",
+    "scopes": [
+      "STROKE_COLOR"
+    ],
+    "description": "Track color for loaders displayed on light or neutral surfaces.",
+    "codeSyntax": "var(--color-loader-track-default)"
+  },
+  {
+    "name": "loader/track/inverse",
+    "alias": "alpha/white/20",
+    "scopes": [
+      "STROKE_COLOR"
+    ],
+    "description": "Track color for loaders displayed on dark or saturated surfaces.",
+    "codeSyntax": "var(--color-loader-track-inverse)"
+  },
+  {
+    "name": "loader/track/warning",
+    "alias": "yellow/600",
+    "scopes": [
+      "STROKE_COLOR"
+    ],
+    "description": "Track color for loaders displayed on warning-colored surfaces.",
+    "codeSyntax": "var(--color-loader-track-warning)"
+  },
+  {
+    "name": "option/avatar/background",
+    "alias": "primary/background/default",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL"
+    ],
+    "description": "Background color for an avatar displayed inside an option.",
+    "codeSyntax": "var(--color-option-avatar-background)"
+  },
+  {
+    "name": "option/background/default",
+    "alias": "background/surface",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL"
+    ],
+    "description": "Default background for options in selector menus.",
+    "codeSyntax": "var(--color-option-background-default)"
+  },
+  {
+    "name": "option/background/disabled",
+    "alias": "background/muted",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL"
+    ],
+    "description": "Background for disabled options.",
+    "codeSyntax": "var(--color-option-background-disabled)"
+  },
+  {
+    "name": "option/background/hover",
+    "alias": "background/subtle",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL"
+    ],
+    "description": "Background for options on pointer hover.",
+    "codeSyntax": "var(--color-option-background-hover)"
+  },
+  {
+    "name": "option/background/selected",
+    "alias": "background/selected",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL"
+    ],
+    "description": "Background for selected options.",
+    "codeSyntax": "var(--color-option-background-selected)"
+  },
+  {
+    "name": "option/foreground/default",
+    "alias": "text & Icons/primary",
+    "scopes": [
+      "SHAPE_FILL",
+      "TEXT_FILL"
+    ],
+    "description": "Default text and icon color for options.",
+    "codeSyntax": "var(--color-option-foreground-default)"
+  },
+  {
+    "name": "option/foreground/disabled",
+    "alias": "text & Icons/disabled",
+    "scopes": [
+      "SHAPE_FILL",
+      "TEXT_FILL"
+    ],
+    "description": "Text and icon color for disabled options.",
+    "codeSyntax": "var(--color-option-foreground-disabled)"
+  },
+  {
+    "name": "option/foreground/hover",
+    "alias": "text & Icons/link/hover",
+    "scopes": [
+      "SHAPE_FILL",
+      "TEXT_FILL"
+    ],
+    "description": "Supporting text color for options.",
+    "codeSyntax": "var(--color-option-foreground-secondary)"
+  },
+  {
+    "name": "option/foreground/pressed",
+    "alias": "text & Icons/link/pressed",
+    "scopes": [
+      "SHAPE_FILL",
+      "TEXT_FILL"
+    ],
+    "description": "Foreground color for option content in the pressed state.",
+    "codeSyntax": "var(--color-option-foreground-pressed)"
+  },
+  {
+    "name": "option/foreground/secondary",
+    "alias": "text & Icons/secondary",
+    "scopes": [
+      "SHAPE_FILL",
+      "TEXT_FILL"
+    ],
+    "description": "Supporting text color for options.",
+    "codeSyntax": "var(--color-option-foreground-secondary)"
+  },
+  {
+    "name": "option/foreground/selected",
+    "alias": "text & Icons/link/default",
+    "scopes": [
+      "SHAPE_FILL",
+      "TEXT_FILL"
+    ],
+    "description": "Text and selection indicator color for selected options.",
+    "codeSyntax": "var(--color-option-foreground-selected)"
+  },
+  {
+    "name": "progress/foreground/default",
+    "alias": "text & Icons/primary",
+    "scopes": [
+      "TEXT_FILL"
+    ],
+    "description": "Text color for progress values and labels.",
+    "codeSyntax": "var(--color-progress-foreground-default)"
+  },
+  {
+    "name": "progress/indicator/brand",
+    "alias": "brand/primary/700",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL",
+      "STROKE_COLOR"
+    ],
+    "description": "Brand color for the completed portion of a progress indicator.",
+    "codeSyntax": "var(--color-progress-indicator-brand)"
+  },
+  {
+    "name": "progress/indicator/inverse",
+    "alias": "base/white",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL",
+      "STROKE_COLOR"
+    ],
+    "description": "Inverse color for the completed portion of a progress indicator on dark or saturated surfaces.",
+    "codeSyntax": "var(--color-progress-indicator-inverse)"
+  },
+  {
+    "name": "progress/indicator/neutral",
+    "alias": "border/default",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL",
+      "STROKE_COLOR"
+    ],
+    "description": "Neutral color for the completed portion of a progress indicator.",
+    "codeSyntax": "var(--color-progress-indicator-neutral)"
+  },
+  {
+    "name": "progress/track/default",
+    "alias": "background/brand-subtle",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL",
+      "STROKE_COLOR"
+    ],
+    "description": "Background track color for progress indicators on light surfaces.",
+    "codeSyntax": "var(--color-progress-track-default)"
+  },
+  {
+    "name": "progress/track/inverse",
+    "alias": "alpha/white/20",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL",
+      "STROKE_COLOR"
+    ],
+    "description": "Background track color for progress indicators on dark or saturated surfaces.",
+    "codeSyntax": "var(--color-progress-track-inverse)"
+  },
+  {
+    "name": "scroll/thumb/default",
+    "alias": "neutral/500",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL"
+    ],
+    "description": "Foreground fill for the draggable scroll thumb.",
+    "codeSyntax": "var(--color-scroll-thumb-default)"
+  },
+  {
+    "name": "scroll/track/default",
+    "alias": "neutral/50",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL"
+    ],
+    "description": "Background fill for the scroll track.",
+    "codeSyntax": "var(--color-scroll-track-default)"
+  },
+  {
+    "name": "selection-control/disabled",
+    "alias": "border/disabled",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL",
+      "STROKE_COLOR"
+    ],
+    "description": "Neutral indicator and border color for disabled selection controls.",
+    "codeSyntax": "var(--color-selection-control-disabled)"
+  },
+  {
+    "name": "selection-control/on-selected/default",
+    "alias": "primary/foreground/default",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL"
+    ],
+    "description": "Indicator color displayed on a selected control in the default state.",
+    "codeSyntax": "var(--color-selection-control-on-selected-default)"
+  },
+  {
+    "name": "selection-control/on-selected/disabled",
+    "alias": "primary/foreground/disabled",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL"
+    ],
+    "description": "Indicator color displayed on a selected control in the disabled state.",
+    "codeSyntax": "var(--color-selection-control-on-selected-disabled)"
+  },
+  {
+    "name": "selection-control/on-selected/focus",
+    "alias": "primary/foreground/default",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL"
+    ],
+    "description": "Indicator color displayed on a selected control in the focused state.",
+    "codeSyntax": "var(--color-selection-control-on-selected-focus)"
+  },
+  {
+    "name": "selection-control/on-selected/hover",
+    "alias": "primary/foreground/default",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL"
+    ],
+    "description": "Indicator color displayed on a selected control on hover.",
+    "codeSyntax": "var(--color-selection-control-on-selected-hover)"
+  },
+  {
+    "name": "selection-control/selected/default",
+    "alias": "primary/background/default",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL",
+      "STROKE_COLOR"
+    ],
+    "description": "Selected control color in the default state.",
+    "codeSyntax": "var(--color-selection-control-selected-default)"
+  },
+  {
+    "name": "selection-control/selected/disabled",
+    "alias": "primary/background/disabled",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL",
+      "STROKE_COLOR"
+    ],
+    "description": "Selected control color in the disabled state.",
+    "codeSyntax": "var(--color-selection-control-selected-disabled)"
+  },
+  {
+    "name": "selection-control/selected/focus",
+    "alias": "primary/background/focus",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL",
+      "STROKE_COLOR"
+    ],
+    "description": "Selected control color in the focused state.",
+    "codeSyntax": "var(--color-selection-control-selected-focus)"
+  },
+  {
+    "name": "selection-control/selected/hover",
+    "alias": "primary/background/hover",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL",
+      "STROKE_COLOR"
+    ],
+    "description": "Selected control color on hover.",
+    "codeSyntax": "var(--color-selection-control-selected-hover)"
+  },
+  {
+    "name": "selection-control/unselected/default",
+    "alias": "border/default",
+    "scopes": [
+      "STROKE_COLOR"
+    ],
+    "description": "Border color for an unselected control in the default state.",
+    "codeSyntax": "var(--color-selection-control-unselected-default)"
+  },
+  {
+    "name": "selection-control/unselected/disabled",
+    "alias": "border/disabled",
+    "scopes": [
+      "STROKE_COLOR"
+    ],
+    "description": "Border color for an unselected control in the disabled state.",
+    "codeSyntax": "var(--color-selection-control-unselected-disabled)"
+  },
+  {
+    "name": "selection-control/unselected/focus",
+    "alias": "border/focus",
+    "scopes": [
+      "STROKE_COLOR"
+    ],
+    "description": "Border color for an unselected control in the focused state.",
+    "codeSyntax": "var(--color-selection-control-unselected-focus)"
+  },
+  {
+    "name": "selection-control/unselected/hover",
+    "alias": "border/hover",
+    "scopes": [
+      "STROKE_COLOR"
+    ],
+    "description": "Border color for an unselected control on hover.",
+    "codeSyntax": "var(--color-selection-control-unselected-hover)"
+  },
+  {
+    "name": "skeleton/background/end",
+    "alias": "neutral/50",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL"
+    ],
+    "description": "Highlighted background used by skeleton placeholders in the hover or shimmer state on standard surfaces.",
+    "codeSyntax": "var(--color-skeleton-background-hover)"
+  },
+  {
+    "name": "skeleton/background/endGlass",
+    "alias": "alpha/white/40",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL"
+    ],
+    "description": "Highlighted translucent background used by skeleton placeholders in the hover or shimmer state on glass surfaces.",
+    "codeSyntax": "var(--color-skeleton-background-hover-glass)"
+  },
+  {
+    "name": "skeleton/background/start",
+    "alias": "brand/secondary/50",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL"
+    ],
+    "description": "Default opaque background for skeleton placeholders on standard surfaces.",
+    "codeSyntax": "var(--color-skeleton-background-default)"
+  },
+  {
+    "name": "skeleton/background/startGlass",
+    "alias": "base/white",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL"
+    ],
+    "description": "Default translucent background for skeleton placeholders on glass surfaces.",
+    "codeSyntax": "var(--color-skeleton-background-default-glass)"
+  },
+  {
+    "name": "switch/thumb/off/default",
+    "alias": "neutral/500",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL"
+    ],
+    "description": "Color for the switch thumb off default role.",
+    "codeSyntax": "var(--color-component-switch-thumb-off-default)"
+  },
+  {
+    "name": "switch/thumb/off/disabled",
+    "alias": "neutral/200",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL"
+    ],
+    "description": "Color for the switch thumb off disabled role.",
+    "codeSyntax": "var(--color-component-switch-thumb-off-disabled)"
+  },
+  {
+    "name": "switch/thumb/off/focus",
+    "alias": "neutral/500",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL"
+    ],
+    "description": "Color for the switch thumb off focus role.",
+    "codeSyntax": "var(--color-component-switch-thumb-off-focus)"
+  },
+  {
+    "name": "switch/thumb/off/hover",
+    "alias": "neutral/500",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL"
+    ],
+    "description": "Color for the switch thumb off hover role.",
+    "codeSyntax": "var(--color-component-switch-thumb-off-hover)"
+  },
+  {
+    "name": "switch/thumb/on/default",
+    "alias": "primary/foreground/default",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL"
+    ],
+    "description": "Color for the switch thumb on default role.",
+    "codeSyntax": "var(--color-component-switch-thumb-on-default)"
+  },
+  {
+    "name": "switch/thumb/on/disabled",
+    "alias": "neutral/50",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL"
+    ],
+    "description": "Color for the switch thumb on disabled role.",
+    "codeSyntax": "var(--color-component-switch-thumb-on-disabled)"
+  },
+  {
+    "name": "switch/thumb/on/focus",
+    "alias": "primary/foreground/default",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL"
+    ],
+    "description": "Color for the switch thumb on focus role.",
+    "codeSyntax": "var(--color-component-switch-thumb-on-focus)"
+  },
+  {
+    "name": "switch/thumb/on/hover",
+    "alias": "primary/foreground/default",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL"
+    ],
+    "description": "Color for the switch thumb on hover role.",
+    "codeSyntax": "var(--color-component-switch-thumb-on-hover)"
+  },
+  {
+    "name": "switch/track/off/default",
+    "alias": "neutral/500",
+    "scopes": [
+      "STROKE_COLOR"
+    ],
+    "description": "Color for the switch track off default role.",
+    "codeSyntax": "var(--color-component-switch-track-off-default)"
+  },
+  {
+    "name": "switch/track/off/disabled",
+    "alias": "border/disabled",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL",
+      "STROKE_COLOR"
+    ],
+    "description": "Color for the switch track off disabled role.",
+    "codeSyntax": "var(--color-component-switch-track-off-disabled)"
+  },
+  {
+    "name": "switch/track/off/focus",
+    "alias": "neutral/500",
+    "scopes": [
+      "STROKE_COLOR"
+    ],
+    "description": "Color for the switch track off focus role.",
+    "codeSyntax": "var(--color-component-switch-track-off-focus)"
+  },
+  {
+    "name": "switch/track/off/hover",
+    "alias": "brand/secondary/800",
+    "scopes": [
+      "STROKE_COLOR"
+    ],
+    "description": "Color for the switch track off hover role.",
+    "codeSyntax": "var(--color-component-switch-track-off-hover)"
+  },
+  {
+    "name": "switch/track/on/default",
+    "alias": "primary/background/default",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL"
+    ],
+    "description": "Color for the switch track on default role.",
+    "codeSyntax": "var(--color-component-switch-track-on-default)"
+  },
+  {
+    "name": "switch/track/on/disabled",
+    "alias": "neutral/50",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL"
+    ],
+    "description": "Color for the switch track on disabled role.",
+    "codeSyntax": "var(--color-component-switch-track-on-disabled)"
+  },
+  {
+    "name": "switch/track/on/focus",
+    "alias": "primary/background/focus",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL"
+    ],
+    "description": "Color for the switch track on focus role.",
+    "codeSyntax": "var(--color-component-switch-track-on-focus)"
+  },
+  {
+    "name": "switch/track/on/hover",
+    "alias": "primary/background/hover",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL"
+    ],
+    "description": "Color for the switch track on hover role.",
+    "codeSyntax": "var(--color-component-switch-track-on-hover)"
+  },
+  {
+    "name": "tab/background/disabled",
+    "alias": "gray/50",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL"
+    ],
+    "description": "Background color for a disabled tab.",
+    "codeSyntax": "var(--color-tab-background-disabled)"
+  },
+  {
+    "name": "tab/background/hover",
+    "alias": "alpha/blue/08",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL"
+    ],
+    "description": "Background color for an unselected tab on hover.",
+    "codeSyntax": "var(--color-tab-background-hover)"
+  },
+  {
+    "name": "tab/background/selected",
+    "alias": "primary/background/default",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL"
+    ],
+    "description": "Background color for a selected tab.",
+    "codeSyntax": "var(--color-tab-background-selected)"
+  },
+  {
+    "name": "tab/foreground/default",
+    "alias": "text & Icons/primary",
+    "scopes": [
+      "SHAPE_FILL",
+      "TEXT_FILL"
+    ],
+    "description": "Text and icon color for an unselected tab.",
+    "codeSyntax": "var(--color-tab-foreground-default)"
+  },
+  {
+    "name": "tab/foreground/disabled",
+    "alias": "text & Icons/disabled",
+    "scopes": [
+      "SHAPE_FILL",
+      "TEXT_FILL"
+    ],
+    "description": "Text and icon color for a disabled tab.",
+    "codeSyntax": "var(--color-tab-foreground-disabled)"
+  },
+  {
+    "name": "tab/foreground/focus",
+    "alias": "text & Icons/link/hover",
+    "scopes": [
+      "SHAPE_FILL",
+      "TEXT_FILL"
+    ],
+    "description": "Text and icon color for a focused tab.",
+    "codeSyntax": "var(--color-tab-foreground-focus)"
+  },
+  {
+    "name": "tab/foreground/hover",
+    "alias": "text & Icons/link/hover",
+    "scopes": [
+      "SHAPE_FILL",
+      "TEXT_FILL"
+    ],
+    "description": "Text and icon color for a tab on hover.",
+    "codeSyntax": "var(--color-tab-foreground-hover)"
+  },
+  {
+    "name": "tab/foreground/selected",
+    "alias": "text & Icons/inverse",
+    "scopes": [
+      "SHAPE_FILL",
+      "TEXT_FILL"
+    ],
+    "description": "Text and icon color for a selected tab.",
+    "codeSyntax": "var(--color-tab-foreground-selected)"
+  },
+  {
+    "name": "tooltip/background/default",
+    "alias": "alpha/dark/64",
+    "scopes": [
+      "FRAME_FILL",
+      "SHAPE_FILL"
+    ],
+    "description": "Default translucent background for tooltip surfaces and pointers.",
+    "codeSyntax": "var(--color-tooltip-background-default)"
+  }
+];
 
 export const layers = [
-  {
-    id: "primitive",
-    name: "Primitive Colors",
-    eyebrow: "Layer 01 · Foundations",
-    description: "Raw color values. Hidden from property pickers and consumed through higher-level aliases.",
-    tokens: primitive
-  },
-  {
-    id: "semantic",
-    name: "Semantic Colors",
-    eyebrow: "Layer 02 · Meaning",
-    description: "Interface-wide roles for surfaces, content, borders, and statuses.",
-    tokens: semantic
-  },
-  {
-    id: "interaction",
-    name: "Interaction Colors",
-    eyebrow: "Layer 03 · Behavior",
-    description: "Shared visual behavior for primary interactive states across controls.",
-    tokens: interaction
-  },
-  {
-    id: "component",
-    name: "Component Colors",
-    eyebrow: "Layer 04 · Implementation",
-    description: "Component-specific contracts for Button, Button Glass, Checkbox, Radio, and Switch.",
-    tokens: component
-  }
+  { id: "primitive", name: "Primitive Colors", eyebrow: "Layer 01 · Foundations", description: "Raw foundation values. Hidden from property pickers and consumed through higher-level aliases.", tokens: primitive },
+  { id: "semantic", name: "Semantic Colors", eyebrow: "Layer 02 · Meaning", description: "Interface-wide roles for backgrounds, text and icons, borders, statuses, and diagrams.", tokens: semantic },
+  { id: "interaction", name: "Interaction Colors", eyebrow: "Layer 03 · Behavior", description: "Shared behavior for primary interaction states and the universal focus ring.", tokens: interaction },
+  { id: "component", name: "Component Colors", eyebrow: "Layer 04 · Implementation", description: "Implementation contracts for supported components, including Field, Option, Selection Control, Button, Badge, Switch, and utilities.", tokens: component }
 ];
 
-const layerMaps = Object.fromEntries(layers.map((layer) => [
-  layer.id,
-  Object.fromEntries(layer.tokens.map((token) => [token.name, token]))
-]));
-
+const layerMaps = Object.fromEntries(layers.map((layer) => [layer.id, Object.fromEntries(layer.tokens.map((token) => [token.name, token]))]));
 const lookupOrder = ["component", "interaction", "semantic", "primitive"];
 
 export function resolveToken(token) {
-  if (token.value) return {
-    cssValue: token.value,
-    displayValue: token.displayValue || token.value,
-    path: [token.name]
-  };
-
-  const seen = new Set();
-  const path = [token.name];
-  let alias = token.alias;
-
+  if (token.value) return { cssValue: token.value, displayValue: token.value, path: [token.name] };
+  const seen = new Set(); const path = [token.name]; let alias = token.alias;
   while (alias && !seen.has(alias)) {
-    seen.add(alias);
-    path.push(alias);
+    seen.add(alias); path.push(alias);
     const next = lookupOrder.map((layer) => layerMaps[layer][alias]).find(Boolean);
     if (!next) break;
-    if (next.value) return {
-      cssValue: next.value,
-      displayValue: next.displayValue || next.value,
-      path
-    };
+    if (next.value) return { cssValue: next.value, displayValue: next.value, path };
     alias = next.alias;
   }
-
   return { cssValue: "transparent", displayValue: "Unresolved", path };
 }
 
 export function groupTokens(layer) {
   return layer.tokens.reduce((groups, token) => {
-    const parts = token.name.split("/");
-    const depth = layer.id === "component" ? 2 : 1;
-    const group = parts.slice(0, depth).join(" / ");
+    const group = token.name.split("/")[0];
     (groups[group] ||= []).push(token);
     return groups;
   }, {});
 }
+

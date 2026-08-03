@@ -1,10 +1,10 @@
 import { layers, resolveToken } from "../src/tokens.js";
 
 const expectedCounts = {
-  primitive: 85,
-  semantic: 37,
-  interaction: 7,
-  component: 116
+  primitive: 90,
+  semantic: 47,
+  interaction: 8,
+  component: 209
 };
 
 const issues = [];
